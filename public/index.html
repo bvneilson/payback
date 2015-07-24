@@ -1,111 +1,43 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.css">
-<link href="styles/style.css" rel="stylesheet">
-<link rel="SHORTCUT ICON" href="favicon.ico">
-<link rel="ICON" href="favicon.ico" type="image/ico" />
-<html ng-app="wwhApp">
+
+<html>
 	<head>
-		<title>Wasatch Woolpack Handspinners</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">	
 		
 	</head>
 	<body>
-		<div id="mainDiv">
-			<header>
-				<img class="logo" src="images/wwh_logo.jpg">
-				<img class="logotext" src="images/logotextlarge.png">
-				<img class="wheel" src="images/small_spinning_wheel.gif">
-				<img class="spinners" src="images/spinnersneverdie.png">
-			</header>
-			<!-- Only buttons can be placed in this nav section.  See the navButton function in apps/navButton.js -->
-			<nav id="navDiv">
-				<button id="home" onclick="navButton('home')">Home</button>
-				<button id="about" onclick="navButton('about')">About Us</button>
-				<button id="member" onclick="navButton('member')">Membership</button>
-				<button id="calendar" onclick="navButton('calendar')">Calendar</button>
-				<button id="officers" onclick="navButton('officers')">Officers</button>
-				<button id="gbfaf" onclick="navButton('gbfaf')">GBFAF</button>
-				<button id="bylaws" onclick="navButton('bylaws')">Bylaws</button>
-				<button id="library" onclick="navButton('library')">Library</button>
-				<button id="projects" onclick="navButton('projects')">Projects</button>
-				<button id="guilds" onclick="navButton('guilds')">Area Guilds</button>
-				<button id="tech" onclick="navButton('tech')">Techniques</button>
-				<button id="retreat" onclick="navButton('retreat')">Retreat</button>
-				<button id="newsletter" onclick="navButton('newsletter')">Newsletters</button>
-				<button id="pattern" onclick="navButton('pattern')">Patterns</button>
-				<button id="tt" onclick="navButton('tt')">T & T</button>
-				<button id="contact" onclick="navButton('contact')">Contact Us</button>
-			</nav>
-			<main>
-				<ng-view></ng-view>
-			</main>
-			<aside>
-				<div id="slider">
-					<img src="images/Bluefaced_Leicester.jpg" id="slide"/>
-					<div id="caption"></div>
-				</div>
-				<div class="spacer"></div>
-				<div id="bottomAside"><strong><em>The music of the spinning wheel will be as balm to your soul. - Mahatma Gandhi</em></strong></div>
-			</aside>
-			<footer>
-				<div  id="footer">
-					<table>
-						<td>
-							<img src="images/fibers1.jpg" id="footerLeft"/>
-						</td>
-						<td>
-							<a class="footerLinks" href="#/home">Home</a> |
-							<a class="footerLinks" href="#/about">About Us</a> |
-							<a class="footerLinks" href="#/member">Membership</a> |
-							<a class="footerLinks" href="#/calendar">Calendar</a> |
-							<a class="footerLinks" href="#/officers">Officers</a> |
-							<a class="footerLinks" href="#/gbfaf">GBFAF</a> |
-							<a class="footerLinks" href="#/bylaws">Bylaws</a> |
-							<a class="footerLinks" href="#/library">Library</a> |
-							<a class="footerLinks" href="#/projects">Projects</a> |
-							<a class="footerLinks" href="#/guilds">Area Guilds</a> |
-							<a class="footerLinks" href="#/tech">Spinning Techniques</a> |
-							<a class="footerLinks" href="#/retreat">Retreat</a> |
-							<a class="footerLinks" href="#/newsletter">Newsletters</a> |
-							<a class="footerLinks" href="#/pattern">Patterns</a> |
-							<a class="footerLinks" href="#/maint">Maintenance</a> |
-							<a class="footerLinks" href="#/contact">Contact Us</a>
-						</td>
-						<td>
-							<img src="images/fibers2.jpg" id="footerRight"/>
-						</td>
-					</table>
-				</div>
-			</footer>
-		</div>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.16/angular.min.js"></script>
-		<script src="https://code.angularjs.org/1.3.16/angular-route.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.js"></script>
-		<script src="apps/slideshow.js"></script>
-		<script src="apps/app.js"></script>
-		<script src="apps/navButton.js"></script>
-		<script src="apps/loadBooks.js"></script>
-		<script src="apps/bookButtons.js"></script>
-		<script src="mainCtrl/mainCtrl.js"></script>
-		<script src="aboutCtrl/aboutCtrl.js"></script>
-		<script src="bylawsCtrl/bylawsCtrl.js"></script>
-		<script src="gbfafCtrl/gbfafCtrl.js"></script>
-		<script src="libraryCtrl/libraryCtrl.js"></script>
-		<script src="officersCtrl/officersCtrl.js"></script>
-		<script src="bookService/bookService.js"></script>
-		<script src="maintCtrl/maintCtrl.js"></script>
-		<script src="projectsCtrl/projectsCtrl.js"></script>
-		<script src="guildsCtrl/guildsCtrl.js"></script>
-		<script src="techCtrl/techCtrl.js"></script>
-		<script src="retreatCtrl/retreatCtrl.js"></script>
-		<script src="newsletterCtrl/newsletterCtrl.js"></script>
-		<script src="patternCtrl/patternCtrl.js"></script>
-		<script src="thimbleCtrl/thimbleCtrl.js"></script>
-		<script src="bookAddCtrl/bookAddCtrl.js"></script>
-		<script src="bookDeleteCtrl/bookDeleteCtrl.js"></script>
-		<script src="bookUpdateCtrl/bookUpdateCtrl.js"></script>
-		<script src="calendarCtrl/calendarCtrl.js"></script>
-		<script src="memberCtrl/memberCtrl.js"></script>
-		<script src="contactCtrl/contactCtrl.js"></script>
+  <div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="name" type="text" class="validate">
+          <label for="name">Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="amount" type="number" class="validate">
+          <label for="amount">Amount</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="email" type="text" class="validate">
+          <label for="email">Email</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="phone" type="tel" class="validate">
+          <label for="phone">Phone</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Description (optional)</label>
+        </div>
+      </div>
+    </form>
+  </div>
+		
 	</body>
 </html>
