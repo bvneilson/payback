@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Payback</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body ng-app="payback">
+	<div class="header">
+		<div class="container">
+			<h1 class="header-heading">Payback</h1>
+		</div>
+		<div class="nav-bar">
+			<ul class="nav">
+				<span><a href="#/">Home</a></span>
+				<span><a href="/#/about">How It Works</a></span>
+				<span><a href="/#/Signup">Signup/Login</a></span>
+				<span><!-- Modal Trigger -->
+  						<a class="modal-trigger waves-effect waves-light btn" href="#modal1">Register</a>
+
+						  <!-- Modal Structure -->
+
+						  <div id="modal1" class="modal">
+						    <div class="modal-content">
+						        <div class="row">
+								    <form class="col s12">								     
+
+								      <div class="row">
+								        <div class="input-field col s12">
+								          <input id="email" type="email" ng-model="email" class="validate">
+								          <label for="email">Email</label>
+								        </div>
+								      </div>
+								 
+								      <div class="input-field col s12" style="padding-right: 10%;">
+							              <i class="mdi-action-lock-outline prefix"></i>
+							              <input id="password" type="password" class="validate" ng-model="reg_password" name="reg_password" required>
+							              <label for="password">Password</label>
+							            </div>
+							            <div class="input-field col s12" style="padding-right: 10%;">
+							              <i class="mdi-action-lock prefix"></i>
+							              <input id="password" type="password" class="validate" ng-model="password_confirm" name="password_confirm" validate-equals='reg_password'>
+							              <label for="password">Confirm Password</label>
+							            </div>
+							            <div ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid" class="input-field col s12" style="padding-right: 10%;">
+							              <i class="mdi-alert-warning prefix yellow-text  text-darken-2"></i>
+							              <input disabled value=" Passwords don't match!" id="icon_prefix" type="text" class="validate" style="border-bottom: 0; margin-bottom: 0;" id="disabled">
+							              <label for="icon_prefix disabled"></label>
+							            </div>
+
+							          <button class="btn waves-effect waves-light" type="submit" ng-click="submit(email, reg_password)">Submit
+									  </button>
+									  
+									  </div>
+								    </form>
+								</div>
+						 </div>
+					</span>
+					<span>
+						<!-- Modal Trigger -->
+						  <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Login</a>
+
+						  <!-- Modal Structure -->
+						
+						  <div id="modal2" class="modal">
+								  
+						    <div class="modal-content">
+						      <div class="row">
+								        <div class="input-field col s12">
+								          <input id="email" type="email" ng-model="email" class="validate">
+								          <label for="email">Email</label>
+								        </div>
+								      </div>
+						    
+						    <div class="input-field col s12" style="padding-right: 10%;">
+							              <i class="mdi-action-lock-outline prefix"></i>
+							              <input id="password" type="password" class="validate" ng-model="reg_password" name="reg_password" required>
+							              <label for="password">Password</label>
+							            </div>
+						    <button class="btn waves-effect waves-light" type="submit" ng-click="submitLogIn(email, reg_password)">Submit
+									   
+									    </button>
+								</div>
+						  </div>
+				
+					</span>
+					<span><a href="/#/dashboard">My Account</a></span>
+			</ul>
+		</div>
+	</div>
+	<div class="content">
+		<div ng-view></div>
+	</div> 
+	<div class="footer">
+		<div class="container">
+			&copy; Copyright 2015
+		</div>
+	</div>
+     <script src="/jquery.js"></script>
+     <script src="/init.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
+</body>
+</html>
