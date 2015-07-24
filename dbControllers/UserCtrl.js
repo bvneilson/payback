@@ -1,16 +1,16 @@
-var Book = require('../dbModels/Book');
+var Book = require('../dbModels/User');
 
 module.exports = {
   create: function(req, res) {
-    var newBook = new Book(req.body);
-    newBook.save( function(err, result) {
+    var newUser = new User(req.body);
+    newUser.save( function(err, result) {
       if (err) return res.status(500).json(err);
       res.json(result);
     });
   },
 
   read: function(req, res) {
-    Book
+    User
     .find(req.query)
     .populate('user')
     .exec(function(err, result) {
@@ -20,14 +20,14 @@ module.exports = {
   },
 
   update: function(req, res) {
-    Book.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
+    User.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
       if (err) return res.status(500).json(err);
       res.json(result);
     });
   },
 
   delete: function(req, res) {
-    Book.findByIdAndRemove(req.params.id, function(err, result) {
+    User.findByIdAndRemove(req.params.id, function(err, result) {
       if (err) return res.status(500).json(err);
       res.json(result);
     });

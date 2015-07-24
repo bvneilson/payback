@@ -1,0 +1,19 @@
+{
+  "name": "payback",
+  "version": "1.0.0",
+  "description": "MEAN Stack",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dylanlott/payback.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dylanlott/payback/issues"
+  },
+  "homepage": "https://github.com/dylanlott/payback#readme"
+}
