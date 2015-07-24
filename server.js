@@ -8,7 +8,8 @@ var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
 
 // Controllers
-var LibCtrl = require('./dbControllers/LibCtrl');
+var UserCtrl = require('./dbControllers/UserCtrl');
+var DebtsCtrl = require('/dbControllers/DebtsCtrl')
 
 // Express
 var app = express();
@@ -23,10 +24,15 @@ app.use(cors());
 var config = fs.readFileSync("config.txt", "utf8");
 
 // Endpoints
-app.post('/library', LibCtrl.create);
-app.get('/library', LibCtrl.read);
-app.put('/library/:id', LibCtrl.update);
-app.delete('/library/:id', LibCtrl.delete);
+app.post('/user', UserCtrl.create);
+app.get('/user', UserCtrl.read);
+app.put('/user/:id', UserCtrl.update);
+app.delete('/user/:id', UserCtrl.delete);
+
+app.post('/debt', DebtsCtrl.create);
+app.get('/debt', DebtsCtrl.read);
+app.put('/debt/:id', DebtsCtrl.update);
+app.delete('/debt/:id', DebtsCtrl.delete);
 
 app.post('/send', function(req, res){
 	var transporter = nodemailer.createTransport({
@@ -51,7 +57,7 @@ app.post('/send', function(req, res){
 });
 
 // Connections
-var port = 2015;
+var port = 1337;
 var mongoUri = 'mongodb://localhost:27017/wwh';
 
 mongoose.connect(mongoUri);
