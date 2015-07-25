@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio');
+var twilio = require('twilio')('ACf23c70746ca32dfeb5d87f3538ca82ec', '1e6085790b26bfbe34a08c1303b0143f');
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -15,11 +15,11 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 
-require('passport')(passport);
+//require('passport')(passport);
 
 // Controllers
 var UserCtrl = require('./dbControllers/UserCtrl');
-var DebtsCtrl = require('/dbControllers/DebtsCtrl');
+var DebtsCtrl = require('./dbControllers/DebtsCtrl');
 
 // Express
 var app = express();
@@ -33,8 +33,8 @@ app.use(morgan('dev'));
 app.use(cookieParser());
 
 app.use(session({ secret: 'payback',
-   resave: 'false',
-   saveUninitialize: true
+   resave: false,
+   saveUninitialized: true
 }));
 
 app.use(passport.initialize());
@@ -45,10 +45,6 @@ app.use(flash());
 // Get config info
  
 var config = fs.readFileSync("config.txt", "utf8");
-
-
-// Twilio
-var client = new twilio.RestClient('PN119fe3ef1d39799e26768561baf4d44b', 'TWILIO_AUTH_TOKEN');
 
 // Endpoints
 app.post('/user', UserCtrl.create);
@@ -87,20 +83,20 @@ app.post('/send', function(req, res){
 
 // Twilio create new SMS
 
-client.sms.messages.create({
-    to:'+18632065900',
-    from:'+1201561-8832',
-    body:'Here comes the text!'
-}, function(error, message) {
-    if (!error) {
-        console.log('Success! The SID for this SMS message is:');
-        console.log(message.sid);
- 
-        console.log('Message sent on:');
-        console.log(message.dateCreated);
-    } else {
-        console.log('Oops! There was an error.');
-    }
+app.post('/messages', function(req, res){
+
+	var message = {
+		to: req.body.to,
+		from: '12015618832',
+		body: req.body.message,
+		date_sent: Date(),
+		is_support: true
+  	};
+  	twilio.sendMessage(message, function(err, data) {
+    	if (!err) {
+      		return res.status(200).end();
+    	}
+  	});
 });
 
 // Passport
