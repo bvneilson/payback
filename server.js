@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio')('ACf23c70746ca32dfeb5d87f3538ca82ec', '1e6085790b26bfbe34a08c1303b0143f');
+var twilio = require('twilio')('', '');
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -14,6 +14,7 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
+var http = require('http');
 
 require('./passport')(passport);
 
@@ -60,17 +61,18 @@ app.post('/send', function(req, res){
 		service: "Gmail",
 		auth: {
 			user: "robertmcarlson1@gmail.com",
-			pass: "tampa157"
+			pass: ""
 		}
 	});	
 	transporter.sendMail({
 	    //from: req.body.from,
 	    from: "paybaqq",
-	    to: "shrthrdude@yahoo.com",
-	    //subject: req.body.subject,
-	    subject: "Test from server",
-	    //text: req.body.text
-	    text: "Test body of text from server"
+	    to: req.body.to,
+	    //to: "shrthrdude@yahoo.com",
+	    subject: req.body.subject,
+	    //subject: "Test from server",
+	    text: req.body.text
+	    //text: "Test body of text from server"
 	}, function(err, info){
 		if(err){
 			res.status(501).json(err);
@@ -87,7 +89,7 @@ app.post('/messages', function(req, res){
 	var message = {
 		//to: req.body.to,
 		to: '18632065900',
-		from: '12015618832',
+		from: '14088377896',
 		//body: req.body.message,
 		body: "Here is the text message",
 		date_sent: Date(),
