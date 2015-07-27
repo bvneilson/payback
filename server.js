@@ -117,7 +117,7 @@ app.get('/auth', auth, function(req, res){
        }
        return res.json(user);
    });
-})
+});
 
 app.get('/logout', function(req, res) {
        req.logout();
