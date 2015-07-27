@@ -43,7 +43,6 @@ app.controller("mainCtrl", function($scope, mainService, $location) {
             console.log('success', 'Ok!', 'You are now loged in');
             Materialize.toast("You are now loged in!", 2500, 'toast-success');
                 $('#modal2').closeModal();
-                $location.path("/dashboard/");
                 $scope.email = '';
                 $scope.password = '';
         }).catch(function(err) {
