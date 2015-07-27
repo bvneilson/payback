@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
+var twilio = require('twilio')('PROCESS_ENV_TWILIO_SID', 'PROCESS_ENV_TWILIO_TOKEN');
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -14,8 +14,9 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
+var http = require('http');
 
-//require('passport')(passport);
+require('./passport')(passport);
 
 // Controllers
 var UserCtrl = require('./dbControllers/UserCtrl');
@@ -42,10 +43,6 @@ app.use(passport.session());
 app.use(flash());
 
 
-// Get config info
- 
-var config = fs.readFileSync("config.txt", "utf8");
-
 // Endpoints
 app.post('/user', UserCtrl.create);
 app.get('/user', UserCtrl.read);
@@ -64,14 +61,18 @@ app.post('/send', function(req, res){
 		service: "Gmail",
 		auth: {
 			user: "robertmcarlson1@gmail.com",
-			pass: config
+			pass: ""
 		}
 	});	
 	transporter.sendMail({
-	    from: req.body.from,
-	    to: "shrthrdude@yahoo.com",
+	    //from: req.body.from,
+	    from: "paybaqq",
+	    to: req.body.to,
+	    //to: "shrthrdude@yahoo.com",
 	    subject: req.body.subject,
+	    //subject: "Test from server",
 	    text: req.body.text
+	    //text: "Test body of text from server"
 	}, function(err, info){
 		if(err){
 			res.status(501).json(err);
@@ -86,9 +87,11 @@ app.post('/send', function(req, res){
 app.post('/messages', function(req, res){
 
 	var message = {
-		to: req.body.to,
-		from: '+14088377896',
-		body: req.body.message,
+		//to: req.body.to,
+		to: '18632065900',
+		from: '14088377896',
+		//body: req.body.message,
+		body: "Here is the text message",
 		date_sent: Date(),
 		is_support: true
   	};
@@ -124,6 +127,14 @@ app.get('/logout', function(req, res) {
        res.redirect('/');
 });
 
+app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
+   res.redirect('/#/dashboard')
+})
+
+app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
+   res.redirect('/#/dashboard')
+})
+
 // Connections
 var port = 1337;
 var mongoUri = 'mongodb://localhost:27017/payback';
@@ -136,4 +147,3 @@ mongoose.connection.once('open', function() {
 app.listen(port, function() {
   console.log('Listening on port ', port);
 });
-
