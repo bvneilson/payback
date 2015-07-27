@@ -15,7 +15,7 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 
-//require('passport')(passport);
+require('./passport')(passport);
 
 // Controllers
 var UserCtrl = require('./dbControllers/UserCtrl');
@@ -42,10 +42,6 @@ app.use(passport.session());
 app.use(flash());
 
 
-// Get config info
- 
-var config = fs.readFileSync("config.txt", "utf8");
-
 // Endpoints
 app.post('/user', UserCtrl.create);
 app.get('/user', UserCtrl.read);
@@ -64,14 +60,17 @@ app.post('/send', function(req, res){
 		service: "Gmail",
 		auth: {
 			user: "robertmcarlson1@gmail.com",
-			pass: config
+			pass: "tampa157"
 		}
 	});	
 	transporter.sendMail({
-	    from: req.body.from,
+	    //from: req.body.from,
+	    from: "paybaqq",
 	    to: "shrthrdude@yahoo.com",
-	    subject: req.body.subject,
-	    text: req.body.text
+	    //subject: req.body.subject,
+	    subject: "Test from server",
+	    //text: req.body.text
+	    text: "Test body of text from server"
 	}, function(err, info){
 		if(err){
 			res.status(501).json(err);
@@ -86,9 +85,11 @@ app.post('/send', function(req, res){
 app.post('/messages', function(req, res){
 
 	var message = {
-		to: req.body.to,
+		//to: req.body.to,
+		to: '18632065900',
 		from: '12015618832',
-		body: req.body.message,
+		//body: req.body.message,
+		body: "Here is the text message",
 		date_sent: Date(),
 		is_support: true
   	};
@@ -124,6 +125,14 @@ app.get('/logout', function(req, res) {
        res.redirect('/');
 });
 
+app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
+   res.redirect('/#/dashboard')
+})
+
+app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
+   res.redirect('/#/dashboard')
+})
+
 // Connections
 var port = 1337;
 var mongoUri = 'mongodb://localhost:27017/payback';
@@ -136,4 +145,3 @@ mongoose.connection.once('open', function() {
 app.listen(port, function() {
   console.log('Listening on port ', port);
 });
-

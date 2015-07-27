@@ -2,10 +2,7 @@
 var LocalStrategy    = require('passport-local').Strategy;
 
 // load up the user model
-var User       = require('./models/User');
-
-// load the auth variables
-var configAuth = require('./auth'); // use this one for testing
+var User       = require('./dbModels/User');
 
 module.exports = function(passport) {
 
@@ -27,7 +24,6 @@ module.exports = function(passport) {
        });
    });
 
-Michael Kanner [3:50 PM]
 // =========================================================================
    // LOCAL LOGIN =============================================================
    // =========================================================================
@@ -63,7 +59,6 @@ Michael Kanner [3:50 PM]
 
    }));
 
-Michael Kanner [3:50 PM]
 // =========================================================================
    // LOCAL SIGNUP ============================================================
    // =========================================================================
