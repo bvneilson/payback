@@ -16,43 +16,65 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
 
+var bcrypt = require('bcrypt');
+var localStrategy = require('passport-local').Strategy;
+
 require('./passport')(passport);
 
 // Controllers
-var UserCtrl = require('./dbControllers/UserCtrl');
+// var UserCtrl = require('./dbControllers/UserCtrl');
 var DebtsCtrl = require('./dbControllers/DebtsCtrl');
 
 // Express
 var app = express();
 
-// Middleware
-app.use(express.static(__dirname + '/public'));
+// Middleware 
+app.use(express.static(__dirname + '/public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 
-app.use(session({ secret: 'payback',
-   resave: false,
-   saveUninitialized: true
-}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(session({ secret: 'payback',
+   resave: false,
+   saveUninitialized: true
+}));
+
+// Passport
+function auth(req, res, next){
+   if(req.user){
+       next()
+   }
+}
+
+app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
+   res.redirect('/#/dashboard')
+})
+
+app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
+   console.log(req, res);
+   res.redirect('/#/dashboard')
+})
+
+app.get('/auth');
+
 
 // Endpoints
-app.post('/user', UserCtrl.create);
-app.get('/user', UserCtrl.read);
-app.put('/user/:id', UserCtrl.update);
-app.delete('/user/:id', UserCtrl.delete);
+// app.post('/user', UserCtrl.create);
+// app.get('/user', UserCtrl.read);
+// app.put('/user/:id', UserCtrl.update);
+// app.delete('/user/:id', UserCtrl.delete);
 
-app.post('/debt', DebtsCtrl.create);
-app.get('/debt', DebtsCtrl.read);
-app.put('/debt/:id', DebtsCtrl.update);
-app.delete('/debt/:id', DebtsCtrl.delete);
+// app.post('/debt', DebtsCtrl.create);
+// app.get('/debt', DebtsCtrl.read);
+// app.put('/debt/:id', DebtsCtrl.update);
+// app.delete('/debt/:id', DebtsCtrl.delete);
 
 // Nodemailer post
 
@@ -87,11 +109,10 @@ app.post('/send', function(req, res){
 app.post('/messages', function(req, res){
 
 	var message = {
-		//to: req.body.to,
-		to: '18016497190',
+
+		to: req.body.to,
 		from: '14088377896',
-		//body: req.body.message,
-		body: "Here is the text message",
+		body: req.body.message,
 		date_sent: Date(),
 		is_support: true
   	};
@@ -102,25 +123,22 @@ app.post('/messages', function(req, res){
   	});
 });
 
-// Passport
-function auth(req, res, next){
-   if(req.user){
-       next();
-   }
-}
 
-app.get('/auth', auth, function(req, res){
-   // res.send(req.user)
-   console.log(req.user);
-   User.find({_id: req.user._id})
-   .populate('local.goals')
-   .exec().then(function(user) {
-       if (!user) {
-           return res.status(404).end();
-       }
-       return res.json(user);
-   });
-});
+
+
+// app.get('/auth', auth, function(req, res){
+//    // res.send(req.user)
+//    console.log(req.user)
+//    User.find({_id: req.user._id})
+//    .populate('local.goals')
+//    .exec().then(function(user) {
+//        if (!user) {
+//            return res.status(404).end();
+//        }
+//        return res.json(user);
+//    });
+// })
+
 
 app.get('/logout', function(req, res) {
        req.logout();
