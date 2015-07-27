@@ -20,10 +20,10 @@ app.service('debtService', function($http) {
 	  })
 	 }
 
-	 this.removeDebt = function(debt) {
-	 	$http({
-	 		method 'DELETE',
-	 		url: 'http://localhost:1337/payback/debts/:id',
-	 	})
-	 }
+	 // this.removeDebt = function(debt) {
+	 // 	$http({
+	 // 		method 'DELETE',
+	 // 		url: 'http://localhost:1337/payback/debts/:id',
+	 // 	})
+	 // }
 }) //Close service.
