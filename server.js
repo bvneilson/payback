@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio')();
+var twilio = require('twilio')("AC5eec3b646d201f9c91fdf62e2dc40de8", "e85c28535adf93201b1daf08a04c45cc");
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -15,7 +15,7 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 
-//require('passport')(passport);
+//require('./passport')(passport);
 
 // Controllers
 var UserCtrl = require('./dbControllers/UserCtrl');
