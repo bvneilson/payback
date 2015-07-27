@@ -3,9 +3,13 @@
 <head>
 	<title>Payback</title>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
+        <script src="/scripts/jquery.js"></script>
+     <script src="/scripts/init.js"></script>
 </head>
-<body ng-app="payback">
+<body ng-app="payback" ng-controller="mainCtrl">
 	<div class="header">
 		<div class="container">
 			<h1 class="header-heading">Payback</h1>
@@ -14,7 +18,6 @@
 			<ul class="nav">
 				<span><a href="#/">Home</a></span>
 				<span><a href="/#/about">How It Works</a></span>
-				<span><a href="/#/Signup">Signup/Login</a></span>
 				<span><!-- Modal Trigger -->
   						<a class="modal-trigger waves-effect waves-light btn" href="#modal1">Register</a>
 
@@ -42,12 +45,6 @@
 							              <input id="password" type="password" class="validate" ng-model="password_confirm" name="password_confirm" validate-equals='reg_password'>
 							              <label for="password">Confirm Password</label>
 							            </div>
-							            <div ng-show="register.password_confirm.$dirty && register.password_confirm.$invalid" class="input-field col s12" style="padding-right: 10%;">
-							              <i class="mdi-alert-warning prefix yellow-text  text-darken-2"></i>
-							              <input disabled value=" Passwords don't match!" id="icon_prefix" type="text" class="validate" style="border-bottom: 0; margin-bottom: 0;" id="disabled">
-							              <label for="icon_prefix disabled"></label>
-							            </div>
-
 							          <button class="btn waves-effect waves-light" type="submit" ng-click="submit(email, reg_password)">Submit
 									  </button>
 									  
@@ -129,19 +126,28 @@
 		</div>
 	</div>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
      <script src="https://cdn.firebase.com/libs/angularfire/0.8.2/angularfire.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.20/angular-route.min.js"></script>
-    <script src="/scripts/jquery.js"></script>
-     <script src="/scripts/init.js"></script>
-     <script src="/public/apps/app.js"></script>
+
+     <script src="/apps/app.js"></script>
      <script src="/ngControllers/mainCtrl.js"></script>
      <script src="/ngControllers/userCtrl.js"></script>
      <script src="/ngControllers/debtCtrl.js"></script>
      <script src="/ngServices/mainService.js"></script>
-     <script src="/ngServices/userService.js"></script>
      <script src="/ngServices/debtService.js"></script>
 
+<script>
+$(document).ready(function(){
+   $('.modal-trigger').leanModal({
+       opacity: .3,
+       in_duration: 300, // Transition in duration
+         out_duration: 200, // Transition out duration
+   });
+ });
+</script>
 </body>
 </html>

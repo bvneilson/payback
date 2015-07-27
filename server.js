@@ -6,7 +6,11 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
+<<<<<<< HEAD
 var twilio = require('twilio')("AC5eec3b646d201f9c91fdf62e2dc40de8", "e85c28535adf93201b1daf08a04c45cc");
+=======
+var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
+>>>>>>> 43cde82489eb6a6fd6a06f78c36c99c753f78ba5
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -14,17 +18,25 @@ var session = require('express-session');
 var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
+var http = require('http');
 
+<<<<<<< HEAD
 //require('./passport')(passport);
+=======
+var bcrypt = require('bcrypt');
+var localStrategy = require('passport-local').Strategy;
+
+require('./passport')(passport);
+>>>>>>> 43cde82489eb6a6fd6a06f78c36c99c753f78ba5
 
 // Controllers
-var UserCtrl = require('./dbControllers/UserCtrl');
+// var UserCtrl = require('./dbControllers/UserCtrl');
 var DebtsCtrl = require('./dbControllers/DebtsCtrl');
 
 // Express
 var app = express();
 
-// Middleware
+// Middleware 
 app.use(express.static(__dirname + '/public'))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -32,30 +44,45 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 
-app.use(session({ secret: 'payback',
-   resave: false,
-   saveUninitialized: true
-}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+app.use(session({ secret: 'payback',
+   resave: false,
+   saveUninitialized: true
+}));
 
-// Get config info
- 
-var config = fs.readFileSync("config.txt", "utf8");
+// Passport
+function auth(req, res, next){
+   if(req.user){
+       next()
+   }
+}
+
+app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
+   res.redirect('/#/dashboard')
+})
+
+app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
+   console.log(req, res);
+   res.redirect('/#/dashboard')
+})
+
+app.get('/auth');
+
 
 // Endpoints
-app.post('/user', UserCtrl.create);
-app.get('/user', UserCtrl.read);
-app.put('/user/:id', UserCtrl.update);
-app.delete('/user/:id', UserCtrl.delete);
+// app.post('/user', UserCtrl.create);
+// app.get('/user', UserCtrl.read);
+// app.put('/user/:id', UserCtrl.update);
+// app.delete('/user/:id', UserCtrl.delete);
 
-app.post('/debt', DebtsCtrl.create);
-app.get('/debt', DebtsCtrl.read);
-app.put('/debt/:id', DebtsCtrl.update);
-app.delete('/debt/:id', DebtsCtrl.delete);
+// app.post('/debt', DebtsCtrl.create);
+// app.get('/debt', DebtsCtrl.read);
+// app.put('/debt/:id', DebtsCtrl.update);
+// app.delete('/debt/:id', DebtsCtrl.delete);
 
 // Nodemailer post
 
@@ -64,20 +91,24 @@ app.post('/send', function(req, res){
 		service: "Gmail",
 		auth: {
 			user: "robertmcarlson1@gmail.com",
-			pass: config
+			pass: ""
 		}
 	});	
 	transporter.sendMail({
-	    from: req.body.from,
-	    to: "shrthrdude@yahoo.com",
+	    //from: req.body.from,
+	    from: "paybaqq",
+	    to: req.body.to,
+	    //to: "shrthrdude@yahoo.com",
 	    subject: req.body.subject,
+	    //subject: "Test from server",
 	    text: req.body.text
+	    //text: "Test body of text from server"
 	}, function(err, info){
 		if(err){
 			res.status(501).json(err);
 		} else {
 			res.json(info);
-		};
+		}
 	});
 });
 
@@ -86,8 +117,9 @@ app.post('/send', function(req, res){
 app.post('/messages', function(req, res){
 
 	var message = {
+
 		to: req.body.to,
-		from: '12015618832',
+		from: '14088377896',
 		body: req.body.message,
 		date_sent: Date(),
 		is_support: true
@@ -99,29 +131,34 @@ app.post('/messages', function(req, res){
   	});
 });
 
-// Passport
-function auth(req, res, next){
-   if(req.user){
-       next()
-   }
-}
 
-app.get('/auth', auth, function(req, res){
-   // res.send(req.user)
-   console.log(req.user)
-   User.find({_id: req.user._id})
-   .populate('local.goals')
-   .exec().then(function(user) {
-       if (!user) {
-           return res.status(404).end();
-       }
-       return res.json(user);
-   });
-})
+
+
+// app.get('/auth', auth, function(req, res){
+//    // res.send(req.user)
+//    console.log(req.user)
+//    User.find({_id: req.user._id})
+//    .populate('local.goals')
+//    .exec().then(function(user) {
+//        if (!user) {
+//            return res.status(404).end();
+//        }
+//        return res.json(user);
+//    });
+// })
+
 
 app.get('/logout', function(req, res) {
        req.logout();
        res.redirect('/');
+});
+
+app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
+   res.redirect('/#/dashboard');
+});
+
+app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
+   res.redirect('/#/dashboard');
 });
 
 // Connections
@@ -136,4 +173,3 @@ mongoose.connection.once('open', function() {
 app.listen(port, function() {
   console.log('Listening on port ', port);
 });
-
