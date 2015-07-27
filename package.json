@@ -24,12 +24,13 @@
     "express": "^4.13.1",
     "express-session": "^1.11.3",
     "fs": "0.0.2",
-    "mongojs": "^1.0.2",
+    "mongojs": "^1.2.1",
     "mongoose": "^4.1.0",
     "morgan": "^1.6.1",
     "nodemailer": "^1.4.0",
     "nodemailer-smtp-transport": "^1.0.3",
     "passport": "^0.2.2",
+    "passport-local": "^1.0.0",
     "twilio": "^2.2.1"
   }
 }
