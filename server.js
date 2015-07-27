@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio')();
+var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -25,7 +25,7 @@ var DebtsCtrl = require('./dbControllers/DebtsCtrl');
 var app = express();
 
 // Middleware
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -77,7 +77,7 @@ app.post('/send', function(req, res){
 			res.status(501).json(err);
 		} else {
 			res.json(info);
-		};
+		}
 	});
 });
 
@@ -87,7 +87,7 @@ app.post('/messages', function(req, res){
 
 	var message = {
 		to: req.body.to,
-		from: '12015618832',
+		from: '+14088377896',
 		body: req.body.message,
 		date_sent: Date(),
 		is_support: true
@@ -102,13 +102,13 @@ app.post('/messages', function(req, res){
 // Passport
 function auth(req, res, next){
    if(req.user){
-       next()
+       next();
    }
 }
 
 app.get('/auth', auth, function(req, res){
    // res.send(req.user)
-   console.log(req.user)
+   console.log(req.user);
    User.find({_id: req.user._id})
    .populate('local.goals')
    .exec().then(function(user) {
@@ -117,7 +117,7 @@ app.get('/auth', auth, function(req, res){
        }
        return res.json(user);
    });
-})
+});
 
 app.get('/logout', function(req, res) {
        req.logout();
