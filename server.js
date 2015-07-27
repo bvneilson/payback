@@ -6,7 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio')('PROCESS_ENV_TWILIO_SID', 'PROCESS_ENV_TWILIO_TOKEN');
+var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -88,7 +88,7 @@ app.post('/messages', function(req, res){
 
 	var message = {
 		//to: req.body.to,
-		to: '18632065900',
+		to: '18016497190',
 		from: '14088377896',
 		//body: req.body.message,
 		body: "Here is the text message",
@@ -120,7 +120,7 @@ app.get('/auth', auth, function(req, res){
        }
        return res.json(user);
    });
-})
+});
 
 app.get('/logout', function(req, res) {
        req.logout();
@@ -128,12 +128,12 @@ app.get('/logout', function(req, res) {
 });
 
 app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
-   res.redirect('/#/dashboard')
-})
+   res.redirect('/#/dashboard');
+});
 
 app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
-   res.redirect('/#/dashboard')
-})
+   res.redirect('/#/dashboard');
+});
 
 // Connections
 var port = 1337;
