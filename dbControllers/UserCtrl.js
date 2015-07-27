@@ -1,4 +1,4 @@
-var Book = require('../dbModels/User');
+var User = require('../dbModels/User');
 
 module.exports = {
   create: function(req, res) {
