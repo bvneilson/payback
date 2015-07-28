@@ -21,6 +21,10 @@ app.config(function($routeProvider) {
     .when('/logout', {
         templateUrl: '/logout'
     })
+    .when('/newdebt', {
+        templateUrl: 'newDebtTmpl.html',
+        controller: 'debtCtrl'
+    })
     // .when('/newgoal', {
     //   templateUrl: 'templates/newgoal.html',
     //   controller: 'newgoalCtrl'

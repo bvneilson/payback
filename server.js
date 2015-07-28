@@ -16,14 +16,17 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
 
+
 var bcrypt = require('bcrypt-nodejs');
+
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
 
 // Controllers
 // var UserCtrl = require('./dbControllers/UserCtrl');
-var DebtsCtrl = require('./dbControllers/DebtsCtrl');
+var DebtsCtrl = require('./dbControllers/DebtsCtrl.js');
+var Debt = require('./dbModels/Debts');
 
 // Express
 var app = express();
@@ -147,6 +150,24 @@ app.post('/messages', function(req, res){
 //        return res.json(user);
 //    });
 // })
+
+
+app.get('/logout', function(req, res) {
+       req.logout();
+       res.redirect('/');
+});
+
+app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
+   res.redirect('/#/dashboard');
+});
+
+app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
+   res.redirect('/#/dashboard');
+});
+
+//debt endpoints
+app.post('/api/debt/create', DebtsCtrl.create);
+
 
 // Connections
 var port = 1337;
