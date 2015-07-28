@@ -6,11 +6,7 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-<<<<<<< HEAD
-var twilio = require('twilio')("AC5eec3b646d201f9c91fdf62e2dc40de8", "e85c28535adf93201b1daf08a04c45cc");
-=======
 var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
->>>>>>> 43cde82489eb6a6fd6a06f78c36c99c753f78ba5
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -20,18 +16,16 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
 
-<<<<<<< HEAD
-//require('./passport')(passport);
-=======
+
 var bcrypt = require('bcrypt');
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
->>>>>>> 43cde82489eb6a6fd6a06f78c36c99c753f78ba5
 
 // Controllers
 // var UserCtrl = require('./dbControllers/UserCtrl');
-var DebtsCtrl = require('./dbControllers/DebtsCtrl');
+var DebtsCtrl = require('./dbControllers/DebtsCtrl.js');
+var Debt = require('./dbModels/Debts');
 
 // Express
 var app = express();
@@ -160,6 +154,9 @@ app.post('/api/user/login', passport.authenticate('local-login'), function(req, 
 app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
    res.redirect('/#/dashboard');
 });
+
+//debt endpoints
+app.post('/api/debt/create', DebtsCtrl.create);
 
 // Connections
 var port = 1337;

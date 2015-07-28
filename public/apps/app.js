@@ -18,6 +18,10 @@ app.config(function($routeProvider) {
     //     }
     // }
     })
+    .when('/newdebt', {
+        templateUrl: 'newDebtTmpl.html',
+        controller: 'debtCtrl'
+    })
     // .when('/newgoal', {
     //   templateUrl: 'templates/newgoal.html',
     //   controller: 'newgoalCtrl'
