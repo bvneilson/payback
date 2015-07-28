@@ -4,19 +4,23 @@ app.config(function($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'view/main.html',
-      // controller: 'mainCtrl'
+      controller: 'mainCtrl'
     })
     .when('/dashboard', {
       templateUrl: 'view/dashboard.html',
-      // controller: 'dashboardCtrl',
-    //   resolve: {
-    //     user: function(dashboardService){
-    //       return dashboardService.getUser().then(function(response){
-    //         console.log(111111, response)
-    //         return response;
-    //       });
-    //     }
-    // }
+      controller: 'dashboardCtrl',
+      resolve: {
+        user: function(dashboardService){
+          return dashboardService.getUser().then(function(response){
+            console.log(111111, response); 
+            $scope.user = response; 
+            return response;
+          });
+        }
+    }
+    })
+    .when('/logout', {
+        templateUrl: '/logout'
     })
     // .when('/newgoal', {
     //   templateUrl: 'templates/newgoal.html',
@@ -30,5 +34,5 @@ app.config(function($routeProvider) {
     // })
     .otherwise({
       redirectTo: '/'
-    });
+    })
 });
