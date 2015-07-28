@@ -17,7 +17,8 @@ var cookieParser = require('cookie-parser');
 var http = require('http');
 
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
+
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
@@ -31,7 +32,7 @@ var Debt = require('./dbModels/Debts');
 var app = express();
 
 // Middleware 
-app.use(express.static(__dirname + '/public'))
+app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -51,20 +52,29 @@ app.use(session({ secret: 'payback',
 // Passport
 function auth(req, res, next){
    if(req.user){
-       next()
+       next();
    }
 }
 
 app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
-   res.redirect('/#/dashboard')
-})
+   res.redirect('/#/dashboard');
+});
 
 app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
    console.log(req, res);
-   res.redirect('/#/dashboard')
-})
+   res.redirect('/#/dashboard');
+});
 
-app.get('/auth');
+app.get('/api/user', function(req, res){
+	res.status(200).json(req.user).end(); 
+});
+
+app.get('/logout', function(req, res) {
+       req.logout();
+       res.redirect('/');
+});
+
+
 
 
 // Endpoints
@@ -157,6 +167,7 @@ app.post('/api/user/signup', passport.authenticate('local-signup'), function(req
 
 //debt endpoints
 app.post('/api/debt/create', DebtsCtrl.create);
+
 
 // Connections
 var port = 1337;
