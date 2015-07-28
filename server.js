@@ -61,7 +61,16 @@ app.post('/api/user/signup', passport.authenticate('local-signup'), function(req
    res.redirect('/#/dashboard')
 })
 
-app.get('/auth');
+app.get('/api/user', function(req, res){
+	res.status(200).json(req.user).end(); 
+});
+
+app.get('/logout', function(req, res) {
+       req.logout();
+       res.redirect('/');
+});
+
+
 
 
 // Get config info
@@ -135,11 +144,6 @@ app.post('/messages', function(req, res){
 //        return res.json(user);
 //    });
 // })
-
-app.get('/logout', function(req, res) {
-       req.logout();
-       res.redirect('/');
-});
 
 // Connections
 var port = 1337;
