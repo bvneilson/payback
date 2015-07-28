@@ -12,8 +12,7 @@ app.config(function($routeProvider) {
       resolve: {
         user: function(dashboardService){
           return dashboardService.getUser().then(function(response){
-            console.log(111111, response); 
-            $scope.user = response; 
+            console.log(111111, response);  
             return response;
           });
         }

@@ -16,7 +16,7 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
 
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
