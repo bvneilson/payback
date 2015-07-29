@@ -26,8 +26,8 @@ app.service('mainService', function($http) {
                 password: password,
             }
         }).then(function(dataResponse) {
-            console.log('service', dataResponse);
+            console.log('service', dataResponse.config.data); 
         })
-        console.log(newUser);
+        console.log("newuser",newUser);
     }
 })

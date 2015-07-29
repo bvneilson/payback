@@ -1,4 +1,5 @@
-var Debt = require('../dbModels/Debts');
+var Debt = require('../dbModels/Debts.js');
+var mongoose = require('mongoose');
 
 module.exports = {
   create: function(req, res) {

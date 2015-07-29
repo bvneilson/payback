@@ -1,19 +1,24 @@
 var app = angular.module("payback");
 
-app.controller("mainCtrl", function($scope, mainService, $location) {
+app.controller("mainCtrl", function($scope, mainService, dashboardService, $location) {
 
-
+    dashboardService.getUser().then(function(user){
+        if (user.data === "") {
+            $scope.user = false;
+        } else {
+            $scope.user = true;
+        }
+    })
+    
     
     //register
 
     $scope.submit = function(email, password) {
-        console.log("submit function ran")
         var newUser = {
         // full_name: $scope.full_name, 
         email: $scope.email,
         password: $scope.reg_password
     };
-        console.log('newUser', newUser)
         mainService.signup(email, password).then(function(res){
             console.log('success', 'Ok!', 'You are now registered');
             Materialize.toast("Account Created!", 2500, 'toast-success');
@@ -46,7 +51,13 @@ app.controller("mainCtrl", function($scope, mainService, $location) {
                 $('#modal2').closeModal();
                 
                 $scope.email = '';
-                $scope.password = '';
+                $scope.reg_password = '';
+                $scope.user = dashboardService.getUser();
+                if ($scope.user.data === ""){
+                    $scope.user = false;
+                } else {
+                    $scope.user = true;
+                }
         }).catch(function(err) {
             $scope.error = err.message;
             console.log('warning', 'Opps!', 'Could not login');

@@ -16,14 +16,18 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
 
+
 var bcrypt = require('bcrypt-nodejs');
+
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
 
 // Controllers
-var UserCtrl = require('./dbControllers/UserCtrl');
-var DebtsCtrl = require('./dbControllers/DebtsCtrl');
+// var UserCtrl = require('./dbControllers/UserCtrl');
+var DebtsCtrl = require('./dbControllers/DebtsCtrl.js');
+var Debt = require('./dbModels/Debts');
+
 
 var User = require('./dbModels/User');
 
@@ -158,6 +162,11 @@ app.post('/messages', function(req, res){
 //        return res.json(user);
 //    });
 // })
+
+
+//debt endpoints
+app.post('/api/debt/create', DebtsCtrl.create);
+
 
 // Connections
 var port = 1337;

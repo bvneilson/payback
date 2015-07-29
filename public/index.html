@@ -81,12 +81,13 @@
 						  </div>
 				
 					</span>
-					<span><a href="/#/dashboard">My Account</a></span>
+					<span><a ng-show="user" href="/#/dashboard">My Account</a></span>
 			</ul>
 		</div>
 	</div>
 	<div class="content">
-		<div ng-view></div>
+		<ng-view></ng-view>
+		  
 	</div> 
 	<div class="footer">
 		<div class="container">

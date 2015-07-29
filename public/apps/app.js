@@ -4,7 +4,15 @@ app.config(function($routeProvider) {
   $routeProvider
     .when('/', {
       templateUrl: 'view/main.html',
-      controller: 'mainCtrl'
+      controller: 'mainCtrl',
+      resolve: {
+        user: function(dashboardService){
+          return dashboardService.getUser().then(function(response){
+            console.log(777777, response);  
+            return response;
+          });
+        }
+      }
     })
     .when('/dashboard', {
       templateUrl: 'view/dashboard.html',
@@ -16,13 +24,13 @@ app.config(function($routeProvider) {
             return response;
           });
         }
-    }
+      }
     })
     .when('/logout', {
         templateUrl: '/logout'
     })
     .when('/newdebt', {
-        templateUrl: 'view/newDebt.html',
+        templateUrl: 'newDebtTmpl.html',
         controller: 'debtCtrl'
     })
     // .when('/newgoal', {
