@@ -12,7 +12,7 @@ app.config(function($routeProvider) {
       resolve: {
         user: function(dashboardService){
           return dashboardService.getUser().then(function(response){
-            console.log(111111, response);  
+            console.log(111111, response); 
             return response;
           });
         }
@@ -20,6 +20,10 @@ app.config(function($routeProvider) {
     })
     .when('/logout', {
         templateUrl: '/logout'
+    })
+    .when('/newdebt', {
+        templateUrl: 'view/newDebt.html',
+        controller: 'debtCtrl'
     })
     // .when('/newgoal', {
     //   templateUrl: 'templates/newgoal.html',
@@ -33,5 +37,5 @@ app.config(function($routeProvider) {
     // })
     .otherwise({
       redirectTo: '/'
-    })
+    });
 });
