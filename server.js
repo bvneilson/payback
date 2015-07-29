@@ -179,6 +179,7 @@ mongoose.connection.once('open', function() {
 
 
 app.get('/api/user/', function(req, res){
+  console.log("server ", req.user)
 	res.status(200).json(req.user); 
 });
 

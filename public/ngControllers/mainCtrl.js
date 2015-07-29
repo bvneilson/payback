@@ -3,11 +3,7 @@ var app = angular.module("payback");
 app.controller("mainCtrl", function($scope, mainService, dashboardService, $location) {
 
     dashboardService.getUser().then(function(user){
-        if (user.data === "") {
-            $scope.user = false;
-        } else {
-            $scope.user = true;
-        }
+        $scope.show = user.data
     })
     
     
@@ -46,18 +42,14 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, $loca
         $scope.submitLogIn = function(email, password) {
         mainService.login(email, password).then(function(login) {
             console.log('success', 'Ok!', 'You are now logged in');
-            Materialize.toast("You are now loged in!", 2500, 'toast-success');
+            Materialize.toast("You are now logged in!", 2500, 'toast-success');
                 $location.path("/dashboard/");
                 $('#modal2').closeModal();
                 
                 $scope.email = '';
                 $scope.reg_password = '';
                 $scope.user = dashboardService.getUser();
-                if ($scope.user.data === ""){
-                    $scope.user = false;
-                } else {
-                    $scope.user = true;
-                }
+                $scope.show = $scope.user
         }).catch(function(err) {
             $scope.error = err.message;
             console.log('warning', 'Opps!', 'Could not login');
