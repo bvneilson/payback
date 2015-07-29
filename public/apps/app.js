@@ -22,7 +22,7 @@ app.config(function($routeProvider) {
         templateUrl: '/logout'
     })
     .when('/newdebt', {
-        templateUrl: 'newDebtTmpl.html',
+        templateUrl: 'view/newDebt.html',
         controller: 'debtCtrl'
     })
     // .when('/newgoal', {
