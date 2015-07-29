@@ -19,7 +19,7 @@
 				<span><a href="#/">Home</a></span>
 				<span><a href="/#/about">How It Works</a></span>
 				<span><!-- Modal Trigger -->
-  						<a class="modal-trigger waves-effect waves-light btn" href="#modal1">Register</a>
+  						<a class="modal-trigger waves-effect waves-light btn" ng-show="!show" href="#modal1">Register</a>
 
 						  <!-- Modal Structure -->
 
@@ -55,7 +55,7 @@
 					</span>
 					<span>
 						<!-- Modal Trigger -->
-						  <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Login</a>
+						  <a class="waves-effect waves-light btn modal-trigger" ng-show="!show" href="#modal2">Login</a>
 
 						  <!-- Modal Structure -->
 						
@@ -81,8 +81,7 @@
 						  </div>
 				
 					</span>
-
-					<span><a ng-show="user" href="/#/dashboard">My Account</a></span>
+					<span><a ng-show="show" href="/#/dashboard">My Account</a></span>
 			</ul>
 		</div>
 	</div>
