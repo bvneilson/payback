@@ -22,8 +22,10 @@ var localStrategy = require('passport-local').Strategy;
 require('./passport')(passport);
 
 // Controllers
-// var UserCtrl = require('./dbControllers/UserCtrl');
+var UserCtrl = require('./dbControllers/UserCtrl');
 var DebtsCtrl = require('./dbControllers/DebtsCtrl');
+
+var User = require('./dbModels/User');
 
 // Express
 var app = express();
@@ -36,15 +38,15 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 
+app.use(session({ secret: 'payback',
+   resave: false,
+   saveUninitialized: true
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use(session({ secret: 'payback',
-   resave: false,
-   saveUninitialized: true
-}));
 
 // Passport
 function auth(req, res, next){
@@ -54,22 +56,32 @@ function auth(req, res, next){
 }
 
 app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
-   res.redirect('/#/dashboard');
+   	User.find({_id: req.user._id})
+   	.exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
 });
 
 app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
-   console.log(req, res);
-   res.redirect('/#/dashboard');
-});
-
-app.get('/api/user', function(req, res){
-	res.status(200).json(req.user).end(); 
+   User.find({_id: req.user._id})
+   .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
 });
 
 app.get('/logout', function(req, res) {
        req.logout();
        res.redirect('/');
 });
+
+
+app.post('/api/debt/create', DebtsCtrl.create);
 
 
 
@@ -137,7 +149,6 @@ app.post('/messages', function(req, res){
 
 // app.get('/auth', auth, function(req, res){
 //    // res.send(req.user)
-//    console.log(req.user)
 //    User.find({_id: req.user._id})
 //    .populate('local.goals')
 //    .exec().then(function(user) {
@@ -157,6 +168,41 @@ mongoose.connection.once('open', function() {
   console.log('Connected to MongoDB at ', mongoUri);
 });
 
+
+app.get('/api/user/', function(req, res){
+	res.status(200).json(req.user); 
+});
+
+app.get('/api/user/:user_id', function(req, res) {
+    User.find({_id: req.params.user_id})
+    .populate('user')
+    .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
+});
+
+app.get('/auth', auth, function(req, res){
+    // res.send(req.user)
+    User.find({_id: req.user._id})
+    .populate('user')
+    .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
+});
+
+app.get('/api/user/auth', function(req, res) {
+    user.find({}).exec().then(function(user) {
+        return res.json(user);
+      });
+}); 
+
 app.listen(port, function() {
   console.log('Listening on port ', port);
 });
+

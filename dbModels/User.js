@@ -11,6 +11,7 @@ var userSchema = new mongoose.Schema({
   // state: { type: String },
   // zip: { type: String },
   // messages: { type: String}
+  debtid: {type:mongoose.Schema.Types.ObjectId, ref: 'Debt'}
 });
 
 // methods ======================
