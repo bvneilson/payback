@@ -152,19 +152,6 @@ app.post('/messages', function(req, res){
 // })
 
 
-app.get('/logout', function(req, res) {
-       req.logout();
-       res.redirect('/');
-});
-
-app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
-   res.redirect('/#/dashboard');
-});
-
-app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
-   res.redirect('/#/dashboard');
-});
-
 //debt endpoints
 app.post('/api/debt/create', DebtsCtrl.create);
 
