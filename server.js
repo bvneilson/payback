@@ -41,15 +41,15 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 
+app.use(session({ secret: 'payback',
+   resave: false,
+   saveUninitialized: true
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use(session({ secret: 'payback',
-   resave: false,
-   saveUninitialized: true
-}));
 
 // Passport
 function auth(req, res, next){
@@ -66,7 +66,7 @@ app.post('/api/user/login', passport.authenticate('local-login'), function(req, 
         }
         return res.json(user);
     });
-})
+});
 
 app.post('/api/user/signup', passport.authenticate('local-signup'), function(req, res){
    User.find({_id: req.user._id})
@@ -77,6 +77,7 @@ app.post('/api/user/signup', passport.authenticate('local-signup'), function(req
         return res.json(user);
     });
 })
+
 
 app.get('/logout', function(req, res) {
        req.logout();
@@ -152,7 +153,6 @@ app.post('/messages', function(req, res){
 
 // app.get('/auth', auth, function(req, res){
 //    // res.send(req.user)
-//    console.log(req.user)
 //    User.find({_id: req.user._id})
 //    .populate('local.goals')
 //    .exec().then(function(user) {
@@ -179,9 +179,8 @@ mongoose.connection.once('open', function() {
 
 
 app.get('/api/user/', function(req, res){
-	console.log("USER IS", req.user); 
 	res.status(200).json(req.user); 
-})
+});
 
 app.get('/api/user/:user_id', function(req, res) {
     User.find({_id: req.params.user_id})
@@ -196,7 +195,6 @@ app.get('/api/user/:user_id', function(req, res) {
 
 app.get('/auth', auth, function(req, res){
     // res.send(req.user)
-    console.log(req.user)
     User.find({_id: req.user._id})
     .populate('user')
     .exec().then(function(user) {
@@ -205,16 +203,15 @@ app.get('/auth', auth, function(req, res){
         }
         return res.json(user);
     });
-})
+});
 
 app.get('/api/user/auth', function(req, res) {
     user.find({}).exec().then(function(user) {
         return res.json(user);
-      })
+      });
 }); 
 
 app.listen(port, function() {
   console.log('Listening on port ', port);
-
 });
 
