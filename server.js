@@ -37,15 +37,15 @@ app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
 
+app.use(session({ secret: 'payback',
+   resave: false,
+   saveUninitialized: true
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
-app.use(session({ secret: 'payback',
-   resave: false,
-   saveUninitialized: true
-}));
 
 // Passport
 function auth(req, res, next){
@@ -55,8 +55,8 @@ function auth(req, res, next){
 }
 
 app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
-   User.find({_id: req.user._id})
-   .exec().then(function(user) {
+   	User.find({_id: req.user._id})
+   	.exec().then(function(user) {
         if (!user) {
             return res.status(404).end();
         }
@@ -146,7 +146,6 @@ app.post('/messages', function(req, res){
 
 // app.get('/auth', auth, function(req, res){
 //    // res.send(req.user)
-//    console.log(req.user)
 //    User.find({_id: req.user._id})
 //    .populate('local.goals')
 //    .exec().then(function(user) {
@@ -168,7 +167,6 @@ mongoose.connection.once('open', function() {
 
 
 app.get('/api/user/', function(req, res){
-	console.log("USER IS", req.user); 
 	res.status(200).json(req.user); 
 })
 
@@ -185,7 +183,6 @@ app.get('/api/user/:user_id', function(req, res) {
 
 app.get('/auth', auth, function(req, res){
     // res.send(req.user)
-    console.log(req.user)
     User.find({_id: req.user._id})
     .populate('user')
     .exec().then(function(user) {

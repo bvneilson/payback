@@ -17,11 +17,13 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        console.log(111111, user, user._id);
+        done(null, user._id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
+        console.log(222222, id);
         User.findById(id, function(err, user) {
             done(err, user);
         });
@@ -37,6 +39,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
+        console.log(333333);
         if (email)
             email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
 
@@ -56,6 +59,7 @@ module.exports = function(passport) {
 
                 // all is well, return user
                 else
+                    console.log(66666, user);
                     return done(null, user);
             });
         });
@@ -72,6 +76,7 @@ module.exports = function(passport) {
         passReqToCallback : true // allows us to pass in the req from our route (lets us check if a user is logged in or not)
     },
     function(req, email, password, done) {
+        console.log(4444444)
         if (email) {
             email = email.toLowerCase(); // Use lower-case e-mails to avoid case-sensitive e-mail matching
         }
