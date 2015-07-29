@@ -45,9 +45,11 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, $loca
 
         $scope.submitLogIn = function(email, password) {
         mainService.login(email, password).then(function(login) {
-            console.log('success', 'Ok!', 'You are now loged in');
+            console.log('success', 'Ok!', 'You are now logged in');
             Materialize.toast("You are now loged in!", 2500, 'toast-success');
+                $location.path("/dashboard/");
                 $('#modal2').closeModal();
+                
                 $scope.email = '';
                 $scope.reg_password = '';
                 $scope.user = dashboardService.getUser();

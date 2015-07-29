@@ -20,7 +20,7 @@ app.config(function($routeProvider) {
       resolve: {
         user: function(dashboardService){
           return dashboardService.getUser().then(function(response){
-            console.log(111111, response);  
+            console.log(111111, response); 
             return response;
           });
         }
@@ -30,7 +30,7 @@ app.config(function($routeProvider) {
         templateUrl: '/logout'
     })
     .when('/newdebt', {
-        templateUrl: 'newDebtTmpl.html',
+        templateUrl: 'view/newDebt.html',
         controller: 'debtCtrl'
     })
     // .when('/newgoal', {
