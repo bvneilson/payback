@@ -24,10 +24,9 @@ var localStrategy = require('passport-local').Strategy;
 require('./passport')(passport);
 
 // Controllers
-// var UserCtrl = require('./dbControllers/UserCtrl');
-var DebtsCtrl = require('./dbControllers/DebtsCtrl.js');
-var Debt = require('./dbModels/Debts');
 
+var UserCtrl = require('./dbControllers/UserCtrl');
+var DebtsCtrl = require('./dbControllers/DebtsCtrl');
 
 var User = require('./dbModels/User');
 
@@ -60,8 +59,8 @@ function auth(req, res, next){
 }
 
 app.post('/api/user/login', passport.authenticate('local-login'), function(req, res){
-   	User.find({_id: req.user._id})
-   	.exec().then(function(user) {
+   User.find({_id: req.user._id})
+   .exec().then(function(user) {
         if (!user) {
             return res.status(404).end();
         }
@@ -77,7 +76,8 @@ app.post('/api/user/signup', passport.authenticate('local-signup'), function(req
         }
         return res.json(user);
     });
-});
+})
+
 
 app.get('/logout', function(req, res) {
        req.logout();
