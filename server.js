@@ -76,7 +76,7 @@ app.post('/api/user/signup', passport.authenticate('local-signup'), function(req
         }
         return res.json(user);
     });
-})
+});
 
 
 app.get('/logout', function(req, res) {
@@ -85,7 +85,7 @@ app.get('/logout', function(req, res) {
 });
 
 
-app.post('/api/debt/create', DebtsCtrl.create);
+app.post('/api/debt/create', DebtsCtrl.createDebt);
 
 
 
@@ -165,7 +165,7 @@ app.post('/messages', function(req, res){
 
 
 //debt endpoints
-app.post('/api/debt/create', DebtsCtrl.create);
+
 
 
 // Connections
@@ -206,6 +206,7 @@ app.get('/auth', auth, function(req, res){
 });
 
 app.get('/api/user/auth', function(req, res) {
+	console.log(req.user);
     user.find({}).exec().then(function(user) {
         return res.json(user);
       });
