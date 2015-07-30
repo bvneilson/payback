@@ -24,6 +24,8 @@ module.exports = {
               return res.json(debt); 
             });
       }
+      // if(err) return res.status(500).end(); 
+      // return res.json(debt); 
     });
   },
 
