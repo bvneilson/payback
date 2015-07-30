@@ -1,6 +1,6 @@
 var app = angular.module('payback');
 
-app.controller('debtCtrl', function($scope, debtService) {
+app.controller('debtCtrl', function($scope, $location, debtService) {
 
 	// $scope.getDebtData = function() {
 	// 	debtservice.getDebts().then(function(response) {
@@ -20,6 +20,8 @@ app.controller('debtCtrl', function($scope, debtService) {
 		debtService.createDebt(newDebt).then(function(res) {
 			console.log('success', 'Ok!', 'You wager is under way');
             Materialize.toast("Wager Created!", 2500, 'toast-success');
+		}).then(function() {
+			$location.path('/dashboard');
 		})
 		.catch(function(err){
             console.log(err);

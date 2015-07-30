@@ -1,6 +1,6 @@
 var app = angular.module("payback");
 
-app.controller("mainCtrl", function($scope, mainService, dashboardService, $location) {
+app.controller("mainCtrl", function($scope, mainService, dashboardService, debtService, $location) {
 
     dashboardService.getUser().then(function(user){
         $scope.show = user.data
@@ -58,5 +58,14 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, $loca
             
         });
     };
+
+    $scope.getDebts = function() {
+          debtService.getDebts().then(function(data) {
+              console.log("debts", data);
+              $scope.debts = data;
+          })
+      };
+
+      $scope.getDebts();
 
 })
