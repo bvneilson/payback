@@ -1,6 +1,6 @@
 var app = angular.module('payback');
 
-app.service('debtService', function($http) {
+app.service('debtService', function($http, $q) {
 
 	// this.getDebts = function() {
 	//  	return $http({
@@ -27,6 +27,18 @@ app.service('debtService', function($http) {
         })
         console.log(newDebt);
 	 }
+
+	 this.getDebts = function(){
+        var deferred = $q.defer();
+        $http({
+            method: 'GET',
+            url: '/api/debts'
+        }).then(function(response) {
+            console.log("Got Debts", response);
+            deferred.resolve(response.data)
+        });
+        return deferred.promise;
+    }
 
 	 // this.removeDebt = function(debt) {
 	 // 	$http({

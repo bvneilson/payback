@@ -17,6 +17,16 @@ module.exports = {
       return res.json(debt); 
     }); 
   },
+
+  getDebts: function(req, res) {
+  Debt.find({}, function(err, result) {
+    if(err) {
+      return res.status(500).end();
+    }
+    console.log(result);
+    return res.json(result);
+  })
+}
   
   // update: function(req, res) {
   //   Debt.findByIdAndUpdate(req.params.id, req.body, function(err, result) {

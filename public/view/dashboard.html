@@ -1,28 +1,25 @@
 <html>
-<body ng-app="payback" ng-controller="dashboardCtrl">
-<div class="container">
+<body>
 
-    <div class="page-header text-center">
-        <h1><span class="fa fa-anchor"></span> Profile Page</h1>
-        <a href="/logout" class="btn btn-default btn-sm">Logout</a>
-    </div>
+<span><a style="float: right;" href="/logout" class="btn btn-default btn-sm">Logout</a></span>
 
-    <div class="row">
+   <div>
+       <h1>Welcome</h1>
+   </div>
 
-                <!-- <div class="container">
-                  <h4>Check it out!</h4>
-                  <div ng-repeat="user in users" class="row">
-                    <div class="col-sm-2">User Info:</div>
-                    <div class="col-sm-2">{{user_id}}</div>
-                  </div>
-                </div> -->
+   <div class="row">
+       <div class="col s4">
+           <h3>User Info:</h3>
+           <p>{{user.data.email}}<p>
+           <p>{{user.data._id}}</p>
+       </div>
+       <div class="col s8">
+           <h3>My Debts:</h3>
+           <p ng-repeat="debt in debts">{{debt.newdescription}}</p>
+           <div class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
+           <div class="btn btn-default btn-sm">Resolve This Debt</div>
+       </div>
+   </div>
 
-                <h4>User Info:</h4>
-            
-                <div class="col-sm-2">{{user.data[0].email}}</div>
-
-                <br>
-    </div>
-</div>
 </body>
 </html>
