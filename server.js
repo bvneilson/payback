@@ -213,6 +213,8 @@ app.get('/api/user/auth', function(req, res) {
       });
 }); 
 
+app.get('/api/debts', DebtsCtrl.getDebts);
+
 app.listen(port, function() {
   console.log('Listening on port ', port);
 });
