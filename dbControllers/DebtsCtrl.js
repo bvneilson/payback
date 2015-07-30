@@ -12,10 +12,19 @@ module.exports = {
       cellPhone: req.body.cellPhone, 
       newdescription: req.body.newdescription,
       userId: req.user.id
-    }, function(err, debt){
-      if(err) return res.status(500).end(); 
-      return res.json(debt); 
-    }); 
+    },
+     function(err, debt){
+      if(debt){
+        console.log(333, debt._id);
+        User
+          .findByIdAndUpdate(req.user.id, 
+            {$push: {debtId: debt._id}},
+            function(err, debt){
+              if(err) return res.status(500).end(); 
+              return res.json(debt); 
+            });
+      }
+    });
   },
 
   getDebts: function(req, res) {
@@ -25,7 +34,7 @@ module.exports = {
     }
     console.log(result);
     return res.json(result);
-  })
+  });
 }
   
   // update: function(req, res) {
