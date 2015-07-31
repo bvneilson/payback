@@ -19,14 +19,15 @@ app.service('debtService', function($http, $q) {
 	    	fullname: newDebt.fullname,
 	    	amount: newDebt.amount,
 	    	cellPhone: newDebt.cellPhone,
-	    	newdescription: newDebt.newdescription
+	    	newdescription: newDebt.newdescription,
+	    	status: newDebt.status
 	    	
 	  	}
-	  }).then(function(dataResponse) {
-            console.log('service', dataResponse);
-        })
+	}).then(function(dataResponse) {
+         
+    })
         console.log(newDebt);
-	 }
+	}
 
 	 this.getDebts = function(){
         var deferred = $q.defer();

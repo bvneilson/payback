@@ -1,4 +1,4 @@
-var app = angular.module('payback', ['ngRoute']);
+var app = angular.module('payback', ['ngRoute', 'ngGrid']);
 
 app.config(function($routeProvider) {
   $routeProvider

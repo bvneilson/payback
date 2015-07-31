@@ -59,12 +59,4 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
         });
     };
 
-    $scope.getDebts = function() {
-          debtService.getDebts().then(function(data) {
-              console.log("debts", data);
-              $scope.debts = data;
-          })
-      };
-
-      $scope.getDebts();
 })
