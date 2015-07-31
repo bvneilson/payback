@@ -17,7 +17,10 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 			newdescription: $scope.newdescription
 		};
 		console.log('newDebt', newDebt)
+		console.log("scope user", $scope.user.$$state.value.data)
 		debtService.createDebt(newDebt).then(function(res) {
+			var currUserId = $scope.user.$$state.value.data.debtId;
+			
 			console.log('success', 'Ok!', 'You wager is under way');
             Materialize.toast("Wager Created!", 2500, 'toast-success');
 		}).then(function() {
