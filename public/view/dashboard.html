@@ -2,11 +2,12 @@
 <body>
 
 <span><a style="float: right;" href="/logout" class="btn btn-default btn-sm">Logout</a></span>
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.css">
+<link rel="stylesheet" type="text/css" href="style.css">
 
    <div>
        <h1>Welcome</h1>
    </div>
-
    <div class="row">
        <div class="col s4">
            <h3>User Info:</h3>
@@ -14,10 +15,39 @@
            <p>{{user.data._id}}</p>
        </div>
        <div class="col s8">
-           <h3>My Debts:</h3>
-           <p ng-repeat="debt in debts">{{debt.newdescription}}</p>
-           <div class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
-           <div class="btn btn-default btn-sm">Resolve This Debt</div>
+          <h3>My Debts:</h3>
+          <br>
+          <div ng-hide="showDebt"></div>
+          <div id="debtDetails" ng-show="showDebt">
+            <p id="debtDetailsTitle">Debt Details</p>
+            <form id="debtDetailsForm">
+              <div>Name: </div>
+              <div ng-model="debt.fullname">{{selected[0].fullname}}</div>
+              <br>
+              <div>Amount: </div>
+              <div ng-model="debt.amount" name="title"> {{selected[0].amount}} </div>
+              <br>
+              <div>Description: </div>
+              <div ng-model="debt.newdescription">{{selected[0].newdescription}}</div>
+              <br>
+              <div>Email: </div>
+              <div ng-model="debt.email">{{selected[0].email}}</div>
+              <br>
+              <div>Cell Phone: </div>
+              <div ng-model="debt.cellphone">{{selected[0].cellPhone}}</div>
+              <br>
+              <div>Status: </div>
+              <div ng-model="debt.status">{{selected[0].status}}</div>
+              <br>
+              <br>
+              <button id="resolveDebt" ng-click="">Resolve Debt</button>
+              <button id="closeDetails" ng-click="closeDetails()">Close Details</button>
+              <br>
+              <br>
+            </form> 
+          </div>
+          <p class="gridStyle" ng-grid="gridOptions"></p>
+          <div class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
 
