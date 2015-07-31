@@ -16,19 +16,19 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 			cellPhone: $scope.phone,
 			newdescription: $scope.newdescription
 		};
-		console.log('newDebt', newDebt)
+		console.log('newDebt', newDebt);
 		debtService.createDebt(newDebt).then(function(res) {
 			console.log('success', 'Ok!', 'You wager is under way');
-            Materialize.toast("Wager Created!", 2500, 'toast-success');
+            Materialize.toast("Debt Created!", 2500, 'toast-success');
 		}).then(function() {
 			$location.path('/dashboard');
 		})
 		.catch(function(err){
             console.log(err);
-            console.log('warning', 'Opps!', 'Could not create wager');
-            Materialize.toast("Opps!, You're wager was not created", 2500, 'toast-warning');
+            console.log('warning', 'Opps!', 'Could not create Debt');
+            Materialize.toast("Opps!, You're debt was not created", 2500, 'toast-warning');
         });
-	}
+	};
 
 	// $scope.removeDebt = function(debt) {
 	// 	debtService.removeDebt(debt).then(function() {
@@ -38,4 +38,4 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 	// }
 	
 
-})
+});
