@@ -79,13 +79,18 @@ Layout styles
 	margin: 0 auto;
 }
 
-/*.gridStyle {
+.gridStyle {
     border: 1px solid #991414;
     width: 100%; 
     height: 220px;
     color: #991414;
     font-size: 12px;
-}*/
+}
+
+.closedRowColor {
+	background-color: blue;
+	color: white;
+}
 
 /*.header
 {
