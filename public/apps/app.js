@@ -36,6 +36,12 @@ app.config(function($routeProvider) {
     .when('/about', {
       templateUrl: 'view/about.html'
     })
+    .when('/email', {
+      templateUrl: 'view/newemail.html'
+    })
+    .when('/text', {
+      templateUrl: 'view/text.html'
+    })
     .otherwise({
       redirectTo: '/'
     });
