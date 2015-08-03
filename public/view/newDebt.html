@@ -1,6 +1,6 @@
 <div class="newDebtArea">
  <h1>Create a new debt</h1>
-  <div class="row">
+  <div id="debtForm" class="row">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
@@ -8,7 +8,7 @@
           <label for="name" data-error="Please enter the name of a person">Name of person who owes you</label>
         </div>
         <div class="input-field col s3">
-          <input ng-model="amount" placeholder="0.00" id="amount" type="number" min=0 step=".01" class="validate">
+          <input ng-model="amount" ng-blur="formatAmount(amount)" placeholder="0.00" id="amount" type="number" min=0 step=".01" class="validate">
           <label class="active" for="amount" data-error="Please enter a dollar amount">Amount they owe you</label>
         </div>
       </div>
@@ -18,7 +18,7 @@
           <label for="email" data-error="Please enter a valid email">Their email</label>
         </div>
         <div class="input-field col s6">
-          <input ng-model="phone" placeholder="(123)456-7890" id="phone" type="tel" class="validate">
+          <input ng-model="phone" placeholder="(123)456-7890" ui-mask="(999) 999-9999" id="phone" type="tel" class="validate">
           <label class="active" for="phone" data-error="Please enter a phone number">Their phone number</label>
         </div>
       </div>
