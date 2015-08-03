@@ -30,21 +30,21 @@ module.exports = {
   },
 
   getDebts: function(req, res) {
-  Debt.find({}, function(err, result) {
-    if(err) {
-      return res.status(500).end();
-    }
-    console.log(result);
-    return res.json(result);
-  });
-}
+    Debt.find({}, function(err, result) {
+      if(err) {
+        return res.status(500).end();
+      }
+      console.log(result);
+      return res.json(result);
+    });
+  },
   
-  // update: function(req, res) {
-  //   Debt.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
-  //     if (err) return res.status(500).json(err);
-  //     res.json(result);
-  //   });
-  // },
+  updateDebt: function(req, res) {
+    Debt.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
+      if (err) return res.status(500).json(err);
+      res.json(result);
+    });
+  }
 
   // delete: function(req, res) {
   //   Debt.findByIdAndRemove(req.params.id, function(err, result) {

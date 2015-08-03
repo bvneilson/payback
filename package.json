@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/dylanlott/payback#readme",
   "dependencies": {
+    "angular-ui-utils": "^0.1.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.13.2",
     "connect-flash": "^0.1.1",
