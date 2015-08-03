@@ -41,6 +41,15 @@ app.service('debtService', function($http, $q) {
         return deferred.promise;
     }
 
+    this.updateDebt = function(debtDoc) {
+	    return $http({
+	      method: 'PUT',
+	      url: 'http://localhost:1337/api/debts/' + debtDoc._id,
+	      data: debtDoc
+	    });
+  	}
+
+
 	 // this.removeDebt = function(debt) {
 	 // 	$http({
 	 // 		method 'DELETE',

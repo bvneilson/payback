@@ -9,17 +9,6 @@ module.exports = {
     });
   },
 
-  // create: function(req, res) {
-  //   User.create({
-  //     email: req.body.email,
-  //     password: req.body.password,
-  //     debtId: req.debt.id
-  //   }, function (err, user) {
-  //     if(err) return res.status(500).end();
-  //     return res.json(user);
-  //   });
-
-  // },
   dashboard: function(req, res) {
     user.find({}).exec().then(function(user) {
 

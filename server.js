@@ -6,7 +6,9 @@ var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
 var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
-var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
+var dotenv = require('dotenv');
+dotenv.load();
+var twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -84,53 +86,59 @@ app.get('/logout', function(req, res) {
        res.redirect('/');
 });
 
-
-app.post('/api/debt/create', DebtsCtrl.createDebt);
-
-
-
-
-// Endpoints
-// app.post('/user', UserCtrl.create);
-// app.get('/user', UserCtrl.read);
-// app.put('/user/:id', UserCtrl.update);
-// app.delete('/user/:id', UserCtrl.delete);
-
-// app.post('/debt', DebtsCtrl.create);
-// app.get('/debt', DebtsCtrl.read);
-// app.put('/debt/:id', DebtsCtrl.update);
-// app.delete('/debt/:id', DebtsCtrl.delete);
-
-// Nodemailer post
-
-app.post('/send', function(req, res){
-	var transporter = nodemailer.createTransport({
-		service: "Gmail",
-		auth: {
-			user: "robertmcarlson1@gmail.com",
-			pass: ""
-		}
-	});	
-	transporter.sendMail({
-	    //from: req.body.from,
-	    from: "paybaqq",
-	    to: req.body.to,
-	    //to: "shrthrdude@yahoo.com",
-	    subject: req.body.subject,
-	    //subject: "Test from server",
-	    text: req.body.text
-	    //text: "Test body of text from server"
-	}, function(err, info){
-		if(err){
-			res.status(501).json(err);
-		} else {
-			res.json(info);
-		}
-	});
+app.get('/api/user/', function(req, res){
+  console.log("server ", req.user)
+  res.status(200).json(req.user); 
 });
 
-// Twilio create new SMS
+app.get('/api/user/:user_id', function(req, res) {
+    User.find({_id: req.params.user_id})
+    .populate('user')
+    .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
+});
 
+app.get('/auth', auth, function(req, res){
+    // res.send(req.user)
+    User.find({_id: req.user._id})
+    .populate('user')
+    .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
+});
+
+app.get('/api/user/auth', function(req, res) {
+    user.find({}).exec().then(function(user) {
+        return res.json(user);
+      });
+}); 
+
+//Sendgrid
+var sendgrid_api_key = process.env.SENDGRID_API_KEY;
+var sendgrid = require('sendgrid')(sendgrid_api_key);
+var email     = new sendgrid.Email({
+  to:       ['braxton.christensen@gmail.com'],
+  from:     'info@debtpayback.com',
+  subject:  'Sendgrid winning',
+  text:     'Hello world',
+  setSendEachAt: [
+  Math.floor(Date.now() / 1000)
+  ]
+
+});
+// sendgrid.send(email, function(err, json) {
+//   if (err) { return console.error(err); }
+//   console.log(json);
+// });
+
+// Twilio create new SMS
 app.post('/messages', function(req, res){
 
 	var message = {
@@ -148,25 +156,13 @@ app.post('/messages', function(req, res){
   	});
 });
 
+// Debts endpoints
 
+app.post('/api/debt/create', DebtsCtrl.createDebt);
 
+app.get('/api/debts', DebtsCtrl.getDebts);
 
-// app.get('/auth', auth, function(req, res){
-//    // res.send(req.user)
-//    User.find({_id: req.user._id})
-//    .populate('local.goals')
-//    .exec().then(function(user) {
-//        if (!user) {
-//            return res.status(404).end();
-//        }
-//        return res.json(user);
-//    });
-// })
-
-
-//debt endpoints
-
-
+app.put('/api/debts/:id', DebtsCtrl.updateDebt)
 
 // Connections
 var port = 1337;
@@ -179,7 +175,7 @@ mongoose.connection.once('open', function() {
 
 
 app.get('/api/user/', function(req, res){
-  console.log("server ", req.user)
+  console.log("server ", req.user);
 	res.status(200).json(req.user); 
 });
 
