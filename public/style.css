@@ -14,7 +14,7 @@ h1,h2,h3,h4,h5,h6
 	line-height: 1.1;
 }
 
-h1 { font-size: 2.25em; } /* 36px */
+h1 { font-size: 3.00em; } /* 36px */
 h2 { font-size: 1.75em; } /* 28px */
 h3 { font-size: 1.375em; } /* 22px */
 h4 { font-size: 1.125em; } /* 18px */
@@ -87,17 +87,12 @@ Layout styles
     font-size: 12px;
 }
 
-.closedRowColor {
-	background-color: blue;
-	color: white;
-}
-
-.header
+/*.header
 {
 	color: #fff;
 	background: #555;
 	padding: 1em 1.25em;
-}
+}*/
 
 .header-heading { 
 	margin: 0;
@@ -111,12 +106,12 @@ Layout styles
 	color: black;
 }
 
-.content
+/*.content
 {
 	overflow: hidden;
 	padding: 1em 1.25em;
 	background-color: #fff;
-}
+}*/
 
 .main, .aside
 {
@@ -131,6 +126,8 @@ Layout styles
 	clear: both;
 }
 
+
+
 /* -----------------------
 Nav
 ------------------------*/
@@ -142,6 +139,7 @@ Nav
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	align-items: center;
 	text-align: center;
 	margin: 0 auto;
 }
@@ -180,4 +178,52 @@ Nav
 {
 	color: white;
 	background-color: red;
+}
+
+/* Parallax Template */
+
+p {
+  line-height: 2rem;
+}
+
+.button-collapse {
+  color: #26a69a;
+}
+
+.parallax-container {
+  min-height: 380px;
+  line-height: 0;
+  height: auto;
+  color: rgba(255,255,255,.9);
+  padding-top: 75px;
+}
+  .parallax-container .section {
+    width: 100%;
+  }
+
+@media only screen and (max-width : 992px) {
+  .parallax-container .section {
+    position: absolute;
+    top: 40%;
+  }
+  #index-banner .section {
+    top: 10%;
+  }
+}
+
+@media only screen and (max-width : 600px) {
+  #index-banner .section {
+    top: 0;
+  }
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+  font-size: inherit;
+}
+
+.parallax img {
+	width: 100%;
 }

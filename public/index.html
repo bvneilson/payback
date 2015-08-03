@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+	 <script src="/scripts/jquery.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no"/>
 	<title>Payback</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="materialize.css">
+    <link rel="stylesheet" type="text/css" href="materialize.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css">
-        <script src="/scripts/jquery.js"></script>
-     <script src="/scripts/init.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/css/materialize.min.css">
 </head>
 <body ng-app="payback" ng-controller="mainCtrl">
 	<div class="header">
@@ -96,9 +99,8 @@
 			&copy; Copyright 2015
 		</div>
 	</div>
-
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-
      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.19/angular.js"></script>
      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.0/js/materialize.min.js"></script>
      <script src="https://cdn.firebase.com/libs/angularfire/0.8.2/angularfire.min.js"></script>
@@ -106,8 +108,9 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.js"></script>
     <script src="https://datejs.googlecode.com/svn/trunk/build/date-en-US.js"></script>
 
-
      <script src="/apps/app.js"></script>
+     <script src="/scripts/materialize.js"></script>
+     <script src="/scripts/materialize.min.js"></script>
      <script src="/ngControllers/mainCtrl.js"></script>
      <script src="/ngControllers/userCtrl.js"></script>
      <script src="/ngControllers/debtCtrl.js"></script>
@@ -122,6 +125,8 @@ $(document).ready(function(){
        in_duration: 300, // Transition in duration
          out_duration: 200, // Transition out duration
    });
+   $('.button-collapse').sideNav();
+   $('.parallax').parallax();
  });
 </script>
 </body>
