@@ -17,6 +17,7 @@
        <div class="col s8">
           <h3>My Debts:</h3>
           <br>
+          <p class="gridStyle" ng-grid="gridOptions"></p>
           <div ng-hide="showDebt"></div>
           <div id="debtDetails" ng-show="showDebt">
             <p id="debtDetailsTitle">Debt Details</p>
@@ -46,7 +47,6 @@
               <br>
             </form> 
           </div>
-          <p class="gridStyle" ng-grid="gridOptions"></p>
           <div class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
