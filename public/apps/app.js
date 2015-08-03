@@ -33,16 +33,9 @@ app.config(function($routeProvider) {
         templateUrl: 'view/newDebt.html',
         controller: 'debtCtrl'
     })
-    // .when('/newgoal', {
-    //   templateUrl: 'templates/newgoal.html',
-    //   controller: 'newgoalCtrl'
-    // })
-    // .when('/about', {
-    //   templateUrl: 'templates/about.html'
-    // })
-    // .when('/contact', {
-    //   templateUrl: 'templates/contact.html'
-    // })
+    .when('/about', {
+      templateUrl: 'view/about.html'
+    })
     .otherwise({
       redirectTo: '/'
     });
