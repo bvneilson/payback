@@ -18,10 +18,7 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 		};
 
 		console.log('newDebt', newDebt)
-		console.log("scope user", $scope.user.$$state.value.data)
 		debtService.createDebt(newDebt).then(function(res) {
-			var currUserId = $scope.user.$$state.value.data.debtId;
-			
 			console.log('success', 'Ok!', 'You wager is under way');
             Materialize.toast("Debt Created!", 2500, 'toast-success');
 		}).then(function() {
@@ -34,6 +31,16 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
         });
 	};
 
+	$scope.formatAmount = function(amount){
+		console.log("scope.amount", amount)
+		amount = amount.toFixed(2);
+		console.log("amount after format", amount)
+	}
+
+	$scope.formatPhone = function(phone){
+		phone = phone.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
+	}
+	
 	// $scope.removeDebt = function(debt) {
 	// 	debtService.removeDebt(debt).then(function() {
 	// 		$scope.getDebtData();
