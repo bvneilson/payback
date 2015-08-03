@@ -16,7 +16,6 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 			cellPhone: $scope.phone,
 			newdescription: $scope.newdescription
 		};
-
 		console.log('newDebt', newDebt)
 		console.log("scope user", $scope.user.$$state.value.data)
 		debtService.createDebt(newDebt).then(function(res) {
