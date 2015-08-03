@@ -86,22 +86,39 @@ app.get('/logout', function(req, res) {
        res.redirect('/');
 });
 
+app.get('/api/user/', function(req, res){
+  console.log("server ", req.user)
+  res.status(200).json(req.user); 
+});
 
-app.post('/api/debt/create', DebtsCtrl.createDebt);
+app.get('/api/user/:user_id', function(req, res) {
+    User.find({_id: req.params.user_id})
+    .populate('user')
+    .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
+});
 
+app.get('/auth', auth, function(req, res){
+    // res.send(req.user)
+    User.find({_id: req.user._id})
+    .populate('user')
+    .exec().then(function(user) {
+        if (!user) {
+            return res.status(404).end();
+        }
+        return res.json(user);
+    });
+});
 
-
-
-// Endpoints
-// app.post('/user', UserCtrl.create);
-// app.get('/user', UserCtrl.read);
-// app.put('/user/:id', UserCtrl.update);
-// app.delete('/user/:id', UserCtrl.delete);
-
-// app.post('/debt', DebtsCtrl.create);
-// app.get('/debt', DebtsCtrl.read);
-// app.put('/debt/:id', DebtsCtrl.update);
-// app.delete('/debt/:id', DebtsCtrl.delete);
+app.get('/api/user/auth', function(req, res) {
+    user.find({}).exec().then(function(user) {
+        return res.json(user);
+      });
+}); 
 
 //Sendgrid
 var sendgrid_api_key = process.env.SENDGRID_API_KEY;
@@ -139,25 +156,13 @@ app.post('/messages', function(req, res){
   	});
 });
 
+// Debts endpoints
 
+app.post('/api/debt/create', DebtsCtrl.createDebt);
 
+app.get('/api/debts', DebtsCtrl.getDebts);
 
-// app.get('/auth', auth, function(req, res){
-//    // res.send(req.user)
-//    User.find({_id: req.user._id})
-//    .populate('local.goals')
-//    .exec().then(function(user) {
-//        if (!user) {
-//            return res.status(404).end();
-//        }
-//        return res.json(user);
-//    });
-// })
-
-
-//debt endpoints
-
-
+app.put('/api/debts/:id', DebtsCtrl.updateDebt)
 
 // Connections
 var port = 1337;
