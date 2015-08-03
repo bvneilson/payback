@@ -14,6 +14,10 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
             console.log(res);
         })
     }
+    $scope.updateUserProfile = function() {
+
+        dashboardService.updateUserProfile();
+    }
 
     $scope.closeDetails = function(){
         $scope.showDebt = false;

@@ -11,9 +11,46 @@
    <div class="row">
        <div class="col s4">
            <h3>User Info:</h3>
-           <p>{{user.data.email}}<p>
-           <p>{{user.data._id}}</p>
-       </div>
+           <p>Name: {{user.data.firstName + " " + user.data.lastName}}<p>
+           <p>Email: {{user.data.email}}</p>
+
+               <!-- Modal Trigger -->
+  <p><button data-target="modal3" class="btn updateProf-trigger">Edit Profile</button>
+  </p>
+    <!-- Modal Structure -->
+            
+              <div id="modal3" class="modal">
+                  
+          <div class="modal-content">
+            <div class="row">
+                    <h4>Edit Profile</h4>
+                        <div class="input-field col s12">
+                          <input id="firstName" type="text" ng-model="userDoc.firstName" class="validate">
+                          <label for="firstName">First Name</label>
+                        </div>
+                         <div class="input-field col s12" style="padding-right: 10%;">
+                            <input id="lastName" type="text" class="validate" ng-model="userDoc.lastName" name="lastName" required>
+                            <label for="lastName">Last Name</label>
+                </div>
+                <div class="input-field col s12">
+                          <input id="cellPhone" type="tel" ng-model="userDoc.cellPhone" class="validate">
+                          <label for="cellPhone">Cell Phone</label>
+                        </div>
+                <div class="input-field col s12">
+                          <input id="email" type="email" ng-model="userDoc.email" class="validate" value={{user.data.email}}>
+                          <label for="email">Email</label>
+                </div>
+                <div class="input-field col s12" style="padding-right: 10%;">
+                            <input id="password" type="password" class="validate" ng-model="userDoc.reg_password" name="reg_password" required>
+                            <label for="password">Password</label>
+                          </div>
+            </div>
+                            <button class="btn waves-effect waves-light" type="submit" ng-click="updateUserProfile()">Finish & Update
+                     
+                      </button>
+          </div>
+                </div>
+              </div>
        <div class="col s8">
           <h3>My Debts:</h3>
           <br>
@@ -50,6 +87,14 @@
           <div class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
-
+<script>
+$(document).ready(function(){
+   $('.updateProf-trigger').leanModal({
+       opacity: .3,
+       in_duration: 300, // Transition in duration
+         out_duration: 200, // Transition out duration
+   });
+ });
+</script>
 </body>
 </html>
