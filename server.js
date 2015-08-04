@@ -3,8 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
-var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
 var dotenv = require('dotenv');
 dotenv.load();
@@ -17,14 +15,12 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
-
-
 var bcrypt = require('bcrypt-nodejs');
-
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
-
+//Sperate Processes
+var job = require('./Scheduler');
 // Controllers
 
 var UserCtrl = require('./dbControllers/UserCtrl');
@@ -119,24 +115,6 @@ app.get('/api/user/auth', function(req, res) {
         return res.json(user);
       });
 }); 
-
-//Sendgrid
-var sendgrid_api_key = process.env.SENDGRID_API_KEY;
-var sendgrid = require('sendgrid')(sendgrid_api_key);
-var email     = new sendgrid.Email({
-  to:       ['braxton.christensen@gmail.com'],
-  from:     'info@debtpayback.com',
-  subject:  'Sendgrid winning',
-  text:     'Hello world',
-  setSendEachAt: [
-  Math.floor(Date.now() / 1000)
-  ]
-
-});
-// sendgrid.send(email, function(err, json) {
-//   if (err) { return console.error(err); }
-//   console.log(json);
-// });
 
 // Twilio create new SMS
 app.post('/messages', function(req, res){
