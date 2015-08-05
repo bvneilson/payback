@@ -81,10 +81,11 @@ Layout styles
 
 .gridStyle {
     border: 1px solid #991414;
-    width: 100%; 
+    width: 95%; 
     height: 220px;
     color: #991414;
     font-size: 12px;
+    margin: 20px;
 }
 
 .closedRowColor {
@@ -231,4 +232,21 @@ p {
 
 .parallax img {
 	width: 100%;
+}
+
+.debtDetailsLabels {
+	font-size: 18px;
+}
+
+.padIt {
+	padding: 10px;
+}
+
+#debtDetailsForm {
+	border: 3px solid black;
+	padding: 10px;
+}
+
+#btnMargin {
+	margin: 20px;
 }
