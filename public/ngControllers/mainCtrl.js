@@ -43,8 +43,9 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
         mainService.login(email, password).then(function(login) {
             console.log('success', 'Ok!', 'You are now logged in');
             Materialize.toast("You are now logged in!", 2500, 'toast-success');
-                $location.path("/dashboard/");
+
                 $('#modal2').closeModal();
+                $location.path("/dashboard/");
                 
                 $scope.email = '';
                 $scope.reg_password = '';

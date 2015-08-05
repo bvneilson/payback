@@ -3,8 +3,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
-var nodemailer = require('nodemailer');
-var smtpTransport = require('nodemailer-smtp-transport');
 var fs = require("fs");
 var dotenv = require('dotenv');
 dotenv.load();
@@ -17,14 +15,12 @@ var flash = require('connect-flash');
 var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var http = require('http');
-
-
 var bcrypt = require('bcrypt-nodejs');
-
 var localStrategy = require('passport-local').Strategy;
 
 require('./passport')(passport);
-
+//Sperate Processes
+var job = require('./Scheduler');
 // Controllers
 
 var UserCtrl = require('./dbControllers/UserCtrl');
@@ -87,7 +83,6 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/api/user/', function(req, res){
-  console.log("server ", req.user)
   res.status(200).json(req.user); 
 });
 
@@ -119,24 +114,8 @@ app.get('/api/user/auth', function(req, res) {
         return res.json(user);
       });
 }); 
-
-//Sendgrid
-var sendgrid_api_key = process.env.SENDGRID_API_KEY;
-var sendgrid = require('sendgrid')(sendgrid_api_key);
-var email     = new sendgrid.Email({
-  to:       ['braxton.christensen@gmail.com'],
-  from:     'info@debtpayback.com',
-  subject:  'Sendgrid winning',
-  text:     'Hello world',
-  setSendEachAt: [
-  Math.floor(Date.now() / 1000)
-  ]
-
-});
-// sendgrid.send(email, function(err, json) {
-//   if (err) { return console.error(err); }
-//   console.log(json);
-// });
+// added 8/4 7:00
+app.put('/api/users/:id', UserCtrl.updateUser)
 
 // Twilio create new SMS
 app.post('/messages', function(req, res){
@@ -172,44 +151,6 @@ mongoose.connect(mongoUri);
 mongoose.connection.once('open', function() {
   console.log('Connected to MongoDB at ', mongoUri);
 });
-
-
-app.get('/api/user/', function(req, res){
-  console.log("server ", req.user);
-	res.status(200).json(req.user); 
-});
-
-app.get('/api/user/:user_id', function(req, res) {
-    User.find({_id: req.params.user_id})
-    .populate('user')
-    .exec().then(function(user) {
-        if (!user) {
-            return res.status(404).end();
-        }
-        return res.json(user);
-    });
-});
-
-app.get('/auth', auth, function(req, res){
-    // res.send(req.user)
-    User.find({_id: req.user._id})
-    .populate('user')
-    .exec().then(function(user) {
-        if (!user) {
-            return res.status(404).end();
-        }
-        return res.json(user);
-    });
-});
-
-app.get('/api/user/auth', function(req, res) {
-	console.log(req.user);
-    user.find({}).exec().then(function(user) {
-        return res.json(user);
-      });
-}); 
-
-app.get('/api/debts', DebtsCtrl.getDebts);
 
 app.listen(port, function() {
   console.log('Listening on port ', port);

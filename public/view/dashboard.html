@@ -1,15 +1,16 @@
 <html>
 <body>
 
-<span><a style="float: right;" href="/logout" class="btn btn-default btn-sm">Logout</a></span>
+<span><a style="float: right;" href="/logout" class="btn btn-default btn-sm" id="btnMargin">Logout</a></span>
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ng-grid/2.0.11/ng-grid.min.css">
 <link rel="stylesheet" type="text/css" href="style.css">
 
    <div>
-       <h1>Welcome</h1>
+       <h1 class="padIt">Welcome</h1>
    </div>
    <div class="row">
        <div class="col s4">
+<<<<<<< HEAD
            <h3>User Info:</h3>
            <p>Name: {{user.data.firstName + " " + user.data.lastName}}<p>
            <p>Email: {{user.data.email}}</p>
@@ -51,47 +52,99 @@
           </div>
                 </div>
               </div>
+=======
+          <h3>User Info:</h3>
+          <p>{{user.email}}<p>
+          <!-- Modal Trigger -->
+          <p><button data-target="modal3" class="btn updateProf-trigger">Edit Profile</button></p>
+       </div>
+    <!-- Modal Structure -->
+      
+        <div id="modal3" class="modal">         
+          <div class="modal-content">
+            <div class="row">
+              <h4>Edit Profile</h4>
+                <div class="input-field col s12">
+                  <input id="firstName" type="text" ng-model="user.firstName" value={{user.firstName}} class="validate">
+                  <label class="active" for="firstName">First Name</label>
+                </div>
+                <div class="input-field col s12" style="padding-right: 10%;">
+                  <input id="lastName" type="text" class="validate" ng-model="user.lastName" value={{user.lastName}} name="lastName" required>
+                  <label class="active" for="lastName">Last Name</label>
+                </div>
+                <div class="input-field col s12">
+                  <input id="cellPhone" type="tel" ng-model="user.cellPhone" value={{user.cellPhone}} class="validate">
+                  <label class="active" for="cellPhone">Cell Phone</label>
+                </div>
+                <div class="input-field col s12">
+                  <input id="email" type="text" value={{user.email}} ng-model="user.email" class="validate">
+                  <label class="active" for="email">Email</label>
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" ng-click="updateUser(user)">Finish & Update
+            </button>
+          </div>
+        </div>
+      </div>
+
+       
+
+>>>>>>> 33bfb523b92ea317f1e0bfa50fa4a0902f549853
        <div class="col s8">
-          <h3>My Debts:</h3>
+          <h3 class="padIt">My Debts:</h3>
           <br>
 
 
           <p class="gridStyle" ng-grid="gridOptions"></p>
           <div ng-hide="showDebt"></div>
           <div id="debtDetails" ng-show="showDebt">
-            <p id="debtDetailsTitle">Debt Details</p>
+            <p id="debtDetailsTitle" class="padIt">Debt Details</p>
             <form id="debtDetailsForm">
-              <div>Name: </div>
-              <div ng-model="debtDoc.fullname">{{selected[0].fullname}}</div>
-              <br>
-              <div>Amount: </div>
-              <div ng-model="debtDoc.amount" name="title"> {{selected[0].amount}} </div>
-              <br>
-              <div>Description: </div>
-              <div ng-model="debtDoc.newdescription">{{selected[0].newdescription}}</div>
-              <br>
-              <div>Email: </div>
-              <div ng-model="debtDoc.email">{{selected[0].email}}</div>
-              <br>
-              <div>Cell Phone: </div>
-              <div ng-model="debtDoc.cellphone">{{selected[0].cellPhone}}</div>
-              <br>
-              <div>Status: </div>
-              <div ng-model="debtDoc.status">{{selected[0].status}}</div>
-              <br>
-              <br>
-              <button id="resolveDebt" ng-show="debtDisplay" ng-click="closeDebt(debtDoc)">Resolve Debt</button>
-              <button id="reopenDebt" ng-show="!debtDisplay" ng-click="reopenDebt(debtDoc)">Reopen Debt</button>
-              <button id="closeDetails" ng-click="closeDetails()">Close Details</button>
-              <br>
+              <table>
+                <tr>
+                  <td>
+                    <span class="debtDetailsLabels">Name: </span><span ng-model="debtDoc.fullname">{{selected[0].fullname}}</span>
+                  </td>
+                  <td>
+                    <span class="debtDetailsLabels">Email: </span><span ng-model="debtDoc.email">{{selected[0].email}}</span>
+                  </td>
+                  <td>
+                    <span class="debtDetailsLabels">Cell Phone: </span><span ng-model="debtDoc.cellphone">{{selected[0].cellPhone}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
+                  </td>
+                  <td>
+                    <span class="debtDetailsLabels">Amount: </span><span ng-model="debtDoc.amount">${{selected[0].amount}}</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <span class="debtDetailsLabels">Description: </span><span ng-model="debtDoc.newdescription">{{selected[0].newdescription}}</span>
+                  </td>
+                </tr>
+              </table>
+              <table>
+                <td>
+                  <button class="btn btn-default btn-sm" id="resolveDebt" ng-show="debtDisplay" ng-click="closeDebt(debtDoc)">Resolve Debt</button>
+                  <button class="btn btn-default btn-sm" id="reopenDebt" ng-show="!debtDisplay" ng-click="reopenDebt(debtDoc)">Reopen Debt</button>
+                </td>
+                <td>
+                  <button class="btn btn-default btn-sm" id="closeDetails" ng-click="closeDetails()">Close Details</button>
+                </td>
+              </table>
               <br>
             </form> 
           </div>
+          <br>
+          <br>
 
-
-          <div class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
+          <div id="btnMargin" class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
+<<<<<<< HEAD
 <script>
 $(document).ready(function(){
    $('.updateProf-trigger').leanModal({
@@ -101,5 +154,16 @@ $(document).ready(function(){
    });
  });
 </script>
+=======
+   <script>
+  $(document).ready(function(){
+     $('.updateProf-trigger').leanModal({
+         opacity: .3,
+         in_duration: 300, // Transition in duration
+           out_duration: 200, // Transition out duration
+     });
+   });
+  </script>
+>>>>>>> 33bfb523b92ea317f1e0bfa50fa4a0902f549853
 </body>
 </html>

@@ -9,29 +9,16 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
             $scope.debtDisplay = false;
         }
     }
-
-    $scope.user = user; 
-    
+//changed 8/4 7:00
+    $scope.user = user.data; 
     $scope.getdata = function(get){
-        dashboardService.getTheData(get).then(function(res) {
-            console.log(res);
-        });
+        dashboardService.getTheData(get)
     };
 
     $scope.getCurrentUser = function(get){
-        dashboardService.getCurrentUser(get).then(function(res) {
-            console.log(res);
-<<<<<<< HEAD
-        })
-    }
-    $scope.updateUserProfile = function() {
-
-        dashboardService.updateUserProfile();
-    }
-=======
         });
+        dashboardService.getCurrentUser(get)
     };
->>>>>>> d1955dc3c89d2c68e11cfb0c9efda705eddbf954
 
     $scope.closeDetails = function(){
         $scope.showDebt = false;
@@ -42,7 +29,6 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
         debtService.updateDebt(debtDoc).then(function() {
             $scope.getDebts();
             setResolveBtn(debtDoc);
-            console.log("Debt updated.");
         });
     };
 
@@ -51,16 +37,18 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
         debtService.updateDebt(debtDoc).then(function() {
             $scope.getDebts();
             setResolveBtn(debtDoc);
-            console.log("Debt updated.");
         });
+    };
+
+    //added 8/4 7:00
+    $scope.updateUser = function(user) {
+        dashboardService.updateUser(user);
     };
 
     $scope.getDebts = function() {
         debtService.getDebts().then(function(data) {
-            console.log("debts", data);
             var debtArray = [];
             var debtTotal = 0;
-            console.log("user.data.id", user.data._id);
             for (var i = 0; i < data.length; i++){
                 if (user.data._id === data[i].userId  && user.data._id ){
                     phoneNo = data[i].cellPhone;
