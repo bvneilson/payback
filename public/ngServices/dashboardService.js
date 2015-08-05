@@ -1,4 +1,5 @@
 angular.module('payback').service('dashboardService', function($http, $q) {
+  
   this.getUser = function(user_id) {
     return $http({
       method: 'GET',
@@ -9,12 +10,13 @@ angular.module('payback').service('dashboardService', function($http, $q) {
   this.getCurrentUser = function(){
     $http.get('/api/user')
       .success(function(user){
-        console.log(user); 
+        console.log("curruser",user); 
       })
       .error(function(err){
         if(err) return err;
       })
   }
+
   this.getData = function() {
     var deferred = $q.defer();
     $http({
@@ -24,6 +26,14 @@ angular.module('payback').service('dashboardService', function($http, $q) {
       deferred.resolve(users.data);
     });
     return deferred.promise;
+  }
+//added 8/4 7:00
+  this.updateUser = function(user) {
+    return $http({
+      method: 'PUT',
+      url: '/api/users/' + user._id,
+      data: user
+    });
   }
 
 });
