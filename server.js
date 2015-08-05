@@ -83,7 +83,6 @@ app.get('/logout', function(req, res) {
 });
 
 app.get('/api/user/', function(req, res){
-  console.log("server ", req.user)
   res.status(200).json(req.user); 
 });
 
@@ -115,6 +114,8 @@ app.get('/api/user/auth', function(req, res) {
         return res.json(user);
       });
 }); 
+// added 8/4 7:00
+app.put('/api/users/:id', UserCtrl.updateUser)
 
 // Twilio create new SMS
 app.post('/messages', function(req, res){
@@ -150,44 +151,6 @@ mongoose.connect(mongoUri);
 mongoose.connection.once('open', function() {
   console.log('Connected to MongoDB at ', mongoUri);
 });
-
-
-app.get('/api/user/', function(req, res){
-  console.log("server ", req.user);
-	res.status(200).json(req.user); 
-});
-
-app.get('/api/user/:user_id', function(req, res) {
-    User.find({_id: req.params.user_id})
-    .populate('user')
-    .exec().then(function(user) {
-        if (!user) {
-            return res.status(404).end();
-        }
-        return res.json(user);
-    });
-});
-
-app.get('/auth', auth, function(req, res){
-    // res.send(req.user)
-    User.find({_id: req.user._id})
-    .populate('user')
-    .exec().then(function(user) {
-        if (!user) {
-            return res.status(404).end();
-        }
-        return res.json(user);
-    });
-});
-
-app.get('/api/user/auth', function(req, res) {
-	console.log(req.user);
-    user.find({}).exec().then(function(user) {
-        return res.json(user);
-      });
-}); 
-
-app.get('/api/debts', DebtsCtrl.getDebts);
 
 app.listen(port, function() {
   console.log('Listening on port ', port);

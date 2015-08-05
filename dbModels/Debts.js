@@ -6,6 +6,7 @@ var debtsSchema = new mongoose.Schema({
   amount: { type: Number, required: true },
   cellPhone: { type: String, required: true },
   newdescription: { type: String, required: true },
+  message: {type: String},
   userId: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
   status: {type: String, default: "Open", required: true}
 });

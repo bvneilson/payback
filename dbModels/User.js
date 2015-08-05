@@ -5,8 +5,9 @@ var userSchema = new mongoose.Schema({
   email: { type: String, required: true },
   password: { type: String, required: true },
   debtId: [ {type:mongoose.Schema.Types.ObjectId, ref: 'Debt', required: true} ],
-  // userName: { type: String },
-  // cellPhone: { type: String }
+  firstName: { type: String },
+  lastName: { tpe: String },
+  cellPhone: { type: String }
 });
 
 // methods ======================
