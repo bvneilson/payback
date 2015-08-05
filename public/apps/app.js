@@ -7,8 +7,7 @@ app.config(function($routeProvider) {
       controller: 'mainCtrl',
       resolve: {
         user: function(dashboardService){
-          return dashboardService.getUser().then(function(response){
-            console.log(777777, response);  
+          return dashboardService.getUser().then(function(response){ 
             return response;
           });
         }
@@ -19,8 +18,7 @@ app.config(function($routeProvider) {
       controller: 'dashboardCtrl',
       resolve: {
         user: function(dashboardService){
-          return dashboardService.getUser().then(function(response){
-            console.log(111111, response); 
+          return dashboardService.getUser().then(function(response){ 
             return response;
           });
         }

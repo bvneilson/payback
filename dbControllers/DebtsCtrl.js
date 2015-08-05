@@ -15,7 +15,6 @@ module.exports = {
     },
      function(err, debt){
       if(debt){
-        console.log(333, debt._id);
         User
           .findByIdAndUpdate(req.user.id, 
             {$push: {debtId: debt._id}},
@@ -34,7 +33,6 @@ module.exports = {
       if(err) {
         return res.status(500).end();
       }
-      console.log(result);
       return res.json(result);
     });
   },

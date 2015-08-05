@@ -4,14 +4,15 @@ var CronJob = require('cron').CronJob;
 var dotenv = require('dotenv');
 dotenv.load();
 
-var job = new CronJob('0 12 * * 1,4',  email, null, true, 'America/Phoenix'); job.start();
+var job = new CronJob('0 12 * * 2,5',  email, null, true, 'America/Denver'); job.start();
 function email() { 
   	// Grab all unpaid debt
   	Debt.where({ status: 'Open'}).exec().then(function(result){
   		// For each user with unpaid debt(or open debt).
   		for(var item in result) {
   		    // Pass debt information to template and store string.
-  			var emailText = 'Just a reminder, ' + result[item].fullname + ' you owe me $' + result[item].amount + ' for ' + result[item].newdescription;
+  			var emailText = 'Just a reminder, '+result[item].fullname+' you owe me $'
+  							+result[item].amount+' for '+result[item].newdescription;
   			//Sendgrid
   		    // Use returned string and schedule email using sendgrid.
 			var sendgrid_api_key = process.env.SENDGRID_API_KEY;
