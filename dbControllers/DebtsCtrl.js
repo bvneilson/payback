@@ -9,8 +9,9 @@ module.exports = {
       email: req.body.email, 
       fullname: req.body.fullname, 
       amount: req.body.amount, 
-      cellPhone: req.body.cellPhone, 
+      cellPhone: req.body.cellPhone,
       newdescription: req.body.newdescription,
+      message: req.body.message,
       userId: req.user.id
     },
      function(err, debt){

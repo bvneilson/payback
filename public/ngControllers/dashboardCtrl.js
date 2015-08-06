@@ -104,6 +104,7 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
             {field: 'fullname', displayName: 'Name'},
             {field: 'amount', displayName: 'Amount'},
             {field: 'newdescription', displayName: 'Description'},
+            {field: 'message', displayName: 'Message'},
             {field: 'status', displayName: 'Status'}
         ]
     };

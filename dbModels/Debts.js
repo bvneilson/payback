@@ -8,7 +8,8 @@ var debtsSchema = new mongoose.Schema({
   newdescription: { type: String, required: true },
   message: {type: String},
   userId: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-  status: {type: String, default: "Open", required: true}
+  status: {type: String, default: "Open", required: true},
+  sendRecord: {type: String}
 });
 
 module.exports = mongoose.model('Debt', debtsSchema);

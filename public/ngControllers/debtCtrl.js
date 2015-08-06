@@ -8,7 +8,8 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 			fullname: $scope.fullname,
 			amount: $scope.amount,
 			cellPhone: $scope.phone,
-			newdescription: $scope.newdescription
+			newdescription: $scope.newdescription,
+			message: $scope.message
 		};
 		console.log('newDebt', newDebt)
 		debtService.createDebt(newDebt).then(function(res) {

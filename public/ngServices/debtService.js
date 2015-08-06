@@ -20,6 +20,7 @@ app.service('debtService', function($http, $q) {
 	    	amount: newDebt.amount,
 	    	cellPhone: newDebt.cellPhone,
 	    	newdescription: newDebt.newdescription,
+	    	message: newDebt.message,
 	    	status: newDebt.status
 	    	
 	  	}
