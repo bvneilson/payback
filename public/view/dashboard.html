@@ -21,6 +21,9 @@
           <div class="modal-content">
             <div class="row">
               <h4>Edit Profile</h4>
+                <!-- <div class="input-field col s12">
+                  <input name="image" id="image" type="file" ng-model="user.image" value={{ user.image }} class="validate">
+                </div> -->
                 <div class="input-field col s12">
                   <input id="firstName" type="text" ng-model="user.firstName" value={{user.firstName}} class="validate">
                   <label class="active" for="firstName">First Name</label>
@@ -37,8 +40,12 @@
                   <input id="email" type="text" value={{user.email}} ng-model="user.email" class="validate">
                   <label class="active" for="email">Email</label>
                 </div>
+                <div class="input-field col s12">
+                  <input id="paypalEmail" type="text" value={{user.paypalEmail}} ng-model="user.paypalEmail" class="validate">
+                  <label class="active" for="paypalEmail">PayPal Email</label>
+                </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" ng-click="updateUser(user)">Finish & Update
+            <button class="modal-close btn waves-effect waves-light" type="submit" ng-click="updateUser(user)">Finish & Update
             </button>
           </div>
         </div>
@@ -52,62 +59,84 @@
 
 
           <p class="gridStyle" ng-grid="gridOptions"></p>
-          <div ng-hide="showDebt"></div>
-          <div id="debtDetails" ng-show="showDebt">
-            <p id="debtDetailsTitle" class="padIt">Debt Details</p>
-            <form id="debtDetailsForm">
-              <table>
-                <tr>
-                  <td>
-                    <span class="debtDetailsLabels">Name: </span><span ng-model="debtDoc.fullname">{{selected[0].fullname}}</span>
-                  </td>
-                  <td>
-                    <span class="debtDetailsLabels">Email: </span><span ng-model="debtDoc.email">{{selected[0].email}}</span>
-                  </td>
-                  <td>
-                    <span class="debtDetailsLabels">Cell Phone: </span><span ng-model="debtDoc.cellphone">{{selected[0].cellPhone}}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
-                  </td>
-                  <td>
-                    <span class="debtDetailsLabels">Amount: </span><span ng-model="debtDoc.amount">${{selected[0].amount}}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="debtDetailsLabels">Description: </span><span ng-model="debtDoc.newdescription">{{selected[0].newdescription}}</span>
-                  </td>
-                </tr>
-              </table>
-              <table>
-                <td>
-                  <button class="btn btn-default btn-sm" id="resolveDebt" ng-show="debtDisplay" ng-click="closeDebt(debtDoc)">Resolve Debt</button>
-                  <button class="btn btn-default btn-sm" id="reopenDebt" ng-show="!debtDisplay" ng-click="reopenDebt(debtDoc)">Reopen Debt</button>
-                </td>
-                <td>
-                  <button class="btn btn-default btn-sm" id="closeDetails" ng-click="closeDetails()">Close Details</button>
-                </td>
-              </table>
-              <br>
-            </form> 
+
+          <div id="modal4" style="min-width: 800px; max-width: 1200px" class="modal">         
+            <div class="modal-content">
+              <div class="row">
+                <div id="debtDetails">
+                  
+                  <div class="modal-header">
+                    <button style="float: right" type="button" class="modal-close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h2 class="modal-title">Debt Details</h2>
+                  </div>
+                  <form id="debtDetailsForm">
+                    <table>
+                      <tr>
+                        <td>
+                          <span class="debtDetailsLabels">Name: </span><span ng-model="debtDoc.fullname">{{selected[0].fullname}}</span>
+                        </td>
+                        <td>
+                          <span class="debtDetailsLabels">Email: </span><span ng-model="debtDoc.email">{{selected[0].email}}</span>
+                        </td>
+                        <td>
+                          <span class="debtDetailsLabels">Cell Phone: </span><span ng-model="debtDoc.cellphone">{{selected[0].cellPhone}}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
+                        </td>
+                        <td>
+                          <span class="debtDetailsLabels">Amount: </span><span ng-model="debtDoc.amount">${{selected[0].amount}}</span>
+                        </td>
+                        <td>
+                          <div ng-show = "debtDiscountAmount">
+                            <span class="debtDetailsLabels">Discounted Amount: </span><span ng-model="debtDoc.discountedAmount">${{selected[0].discountedAmount}}</span>
+                          </div>
+                          <div ng-show = "debtInterestAmount">
+                            <span class="debtDetailsLabels">Amount plus interest: </span><span ng-model="debtDoc.increasedAmount">${{selected[0].increasedAmount}}</span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="debtDetailsLabels">Description: </span><span ng-model="debtDoc.newdescription">{{selected[0].newdescription}}</span>
+                        </td>
+                      </tr>
+                    </table>
+                    <table>
+                      <td>
+                        <button class="btn btn-default btn-sm" id="resolveDebt" ng-show="debtDisplay" ng-click="closeDebt(debtDoc)">Resolve Debt</button>
+                        <button class="btn btn-default btn-sm" id="reopenDebt" ng-show="!debtDisplay" ng-click="reopenDebt(debtDoc)">Reopen Debt</button>
+                      </td>
+                      <td ng-show="debtDiscountSet" >
+                        <button class="btn btn-default btn-sm" id="giveDisc" ng-show="debtDiscount" ng-click="applyDiscount(debtDoc)">Apply 10% Discount</button>
+                        <button class="btn btn-default btn-sm" id="removeDisc" ng-show="!debtDiscount" ng-click="removeDiscount(debtDoc)">Remove Discount</button>
+                      </td>
+                      <td ng-show="debtInterestSet">
+                        <button class="btn btn-default btn-sm" id="addInterest" ng-show="debtInterest" ng-click="applyInterest(debtDoc)">Apply 5% Interest</button>
+                        <button class="btn btn-default btn-sm" id="removeInterest" ng-show="!debtInterest" ng-click="removeInterest(debtDoc)">Remove Interest</button>
+                      </td>
+                    </table>
+                    <br>
+                  </form> 
+                </div>
+              </div>
+            </div>
           </div>
           <br>
           <br>
-
           <div id="btnMargin" class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
-   <script>
-  $(document).ready(function(){
-     $('.updateProf-trigger').leanModal({
-         opacity: .3,
-         in_duration: 300, // Transition in duration
-           out_duration: 200, // Transition out duration
-     });
-   });
+  <script>
+    $(document).ready(function(){
+       $('.updateProf-trigger').leanModal({
+           opacity: .3,
+           in_duration: 300, // Transition in duration
+             out_duration: 200, // Transition out duration
+       });
+    });
   </script>
 </body>
 </html>
