@@ -2,6 +2,7 @@ var app = angular.module('payback');
 
 app.controller('debtCtrl', function($scope, $location, debtService) {
 
+
 	$scope.createNewDebt = function() {
 		var newDebt = {
 			email: $scope.email,
