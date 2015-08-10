@@ -17,6 +17,12 @@ var cookieParser = require('cookie-parser');
 var http = require('http');
 var bcrypt = require('bcrypt-nodejs');
 var localStrategy = require('passport-local').Strategy;
+var AWS = require('aws-sdk');
+AWS.config = new AWS.Config();
+AWS.config.update({
+  accessKeyId: 'AKIAJ6H5OB3YMTLK4OJQ',
+  secretAccessKey: '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'
+})
 
 require('./passport')(passport);
 //Sperate Processes
@@ -48,6 +54,11 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+// S3 Web services
+
+var s3bucket = new AWS.S3({params: {Bucket: 'debtpayback'}});
+
+//app.post('/api/users/:id', UserCtrl.updateUser);
 
 // Passport
 function auth(req, res, next){
@@ -141,7 +152,7 @@ app.post('/api/debt/create', DebtsCtrl.createDebt);
 
 app.get('/api/debts', DebtsCtrl.getDebts);
 
-app.put('/api/debts/:id', DebtsCtrl.updateDebt)
+app.put('/api/debts/:id', DebtsCtrl.updateDebt);
 
 // Connections
 var port = 1337;

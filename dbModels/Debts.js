@@ -8,7 +8,11 @@ var debtsSchema = new mongoose.Schema({
   newdescription: { type: String, required: true },
   message: {type: String},
   userId: {type:mongoose.Schema.Types.ObjectId, ref: 'User', required: true},
-  status: {type: String, default: "Open", required: true}
+  status: {type: String, default: "Open", required: true},
+  discount: { type: Boolean, default: false },
+  discountedAmount: { type: Number, default: 0 },
+  increasedAmount: { type: Number, default: 0 },
+  interest: { type: Boolean, default: false }
 });
 
 module.exports = mongoose.model('Debt', debtsSchema);

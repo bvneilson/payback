@@ -36,4 +36,13 @@ angular.module('payback').service('dashboardService', function($http, $q) {
     });
   }
 
+  // this.uploadImage = function(user) {
+  //   console.log("user w image", user)
+  //   return $http({
+  //     method: 'PUT',
+  //     url: '/api/users/' + user._id,
+  //     data: user
+  //   });
+  // }
+
 });
