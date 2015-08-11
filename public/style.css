@@ -51,12 +51,12 @@ table
 	border-top: 1px solid #ddd;
 }
 
-th, td
+th, td, tr
 {
 	padding: .5em 1em;
 	vertical-align: top;
 	text-align: left;
-	border-bottom: 1px solid #ddd;
+
 }
 
 a:link { color: royalblue; }
@@ -240,7 +240,7 @@ p {
 }
 
 .debtDetailsLabels {
-	font-size: 18px;
+	font-size: 18px
 }
 
 .padIt {
@@ -253,5 +253,10 @@ p {
 }
 
 #btnMargin {
-	margin: 20px;
+	margin: 10px;
+}
+
+#debtMsg {
+	width: 600px;
+	padding-left: 15px;
 }
