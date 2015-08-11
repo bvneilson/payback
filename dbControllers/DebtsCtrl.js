@@ -1,6 +1,10 @@
 var Debt = require('../dbModels/Debts.js');
 var User = require('../dbModels/User.js');
 var mongoose = require('mongoose');
+var dotenv = require('dotenv');
+dotenv.load();
+var sendgrid = require('sendgrid')(process.env.SENDGRID_API_KEY);
+var scheduler = require('../Scheduler.js');
 
 module.exports = {
 
@@ -9,10 +13,14 @@ module.exports = {
       email: req.body.email, 
       fullname: req.body.fullname, 
       amount: req.body.amount, 
-      cellPhone: req.body.cellPhone, 
+      cellPhone: req.body.cellPhone,
       newdescription: req.body.newdescription,
-      userId: req.user.id
+      message: req.body.message,
+      schedulePref: req.body.schedulePref,
+      userId: req.user.id,
+      sendRecord: Math.floor(Date.now()/1000)
     },
+    scheduler.emailOnCreate(req.body.email, req.user.id, req.body.fullname, req.body.cellPhone),
      function(err, debt){
       if(debt){
         User

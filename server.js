@@ -4,9 +4,6 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var mongoose = require('mongoose');
 var fs = require("fs");
-var dotenv = require('dotenv');
-dotenv.load();
-var twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 var mongojs = require('mongojs');
 var db = mongojs('users', ['user']);
 var passport = require('passport');
@@ -48,6 +45,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 
+//app.post('/api/users/:id', UserCtrl.updateUser);
 
 // Passport
 function auth(req, res, next){
@@ -116,32 +114,13 @@ app.get('/api/user/auth', function(req, res) {
 }); 
 // added 8/4 7:00
 app.put('/api/users/:id', UserCtrl.updateUser)
-
-// Twilio create new SMS
-app.post('/messages', function(req, res){
-
-	var message = {
-
-		to: req.body.to,
-		from: '14088377896',
-		body: req.body.message,
-		date_sent: Date(),
-		is_support: true
-  	};
-  	twilio.sendMessage(message, function(err, data) {
-    	if (!err) {
-      		return res.status(200).end();
-    	}
-  	});
-});
-
 // Debts endpoints
 
 app.post('/api/debt/create', DebtsCtrl.createDebt);
 
 app.get('/api/debts', DebtsCtrl.getDebts);
 
-app.put('/api/debts/:id', DebtsCtrl.updateDebt)
+app.put('/api/debts/:id', DebtsCtrl.updateDebt);
 
 // Connections
 var port = 1337;

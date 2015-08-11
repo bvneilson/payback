@@ -1,35 +1,106 @@
 //Scheduler.js
+var User = require('./dbModels/User');
 var Debt = require('./dbModels/Debts');
 var CronJob = require('cron').CronJob;
 var dotenv = require('dotenv');
 dotenv.load();
+var sendgrid = require('sendgrid')(process.env.SENDGRID_API_KEY);
+var twilio = require('twilio')(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TOKEN);
 
-var job = new CronJob('0 12 * * 2,5',  email, null, true, 'America/Denver'); job.start();
+var job = new CronJob('0 10 * * *',  email, null, true, 'America/Denver'); job.start();
+// email();
 function email() { 
-  	// Grab all unpaid debt
-  	Debt.where({ status: 'Open'}).exec().then(function(result){
+	var owner;
+	var now = Date.now()/1000;
+  	// Grab all unpaid debt.
+  	Debt.where({ status: 'Open'}).exec().then(function(debt){
   		// For each user with unpaid debt(or open debt).
-  		for(var item in result) {
+  		for(var item in debt) { 
+  			var userid = debt[item].userId.toString();
+			User
+			.findById(userid, function(err, user){
+				if(err) console.log(err);
+				console.log(user.firstName);
+				owner = user.firstName;
+			}).exec().then(function(){
+			console.log(owner);
+
   		    // Pass debt information to template and store string.
-  			var emailText = 'Just a reminder, '+result[item].fullname+' you owe me $'
-  							+result[item].amount+' for '+result[item].newdescription;
+  			var emailText = 'Just a reminder, '+debt[item].fullname+'. You owe '+owner+' $'
+  							+debt[item].amount+' for '+debt[item].newdescription+'. '+debt[item].message;
+  			//Twilio Setup
+  			var message = {
+  				to: debt[item].cellPhone,
+ 				from: '14088377896',
+ 				body: emailText,
+ 				date_sent: Date(),
+ 				is_support: true
+ 			};
   			//Sendgrid
-  		    // Use returned string and schedule email using sendgrid.
-			var sendgrid_api_key = process.env.SENDGRID_API_KEY;
-			var sendgrid = require('sendgrid')(sendgrid_api_key);
+  		    // Use returned string and schedule email using sendgrid
 			var sendGridEmail = new sendgrid.Email({
-			  to:       result[item].email,
+			  to:       debt[item].email,
 			  from:     'info@debtpayback.com',
 			  subject:  'Just a reminder.',
 			  text:     emailText,
-			  setSendEachAt: [
-			  Math.floor(Date.now() / 1000)
-			  ]
+			  setSendEachAt: Math.floor(now)
 			});
-			sendgrid.send(sendGridEmail , function(err, json) {
-			  if (err) { return console.error(err); }
-			  console.log(json);
-			});
+			//send off email with sendgrid
+			if(debt[item].schedulePref <= debt[item].sendRecord){
+				twilio.sendMessage(message, function(err, json) {
+ 					if (err) { console.log(err); }
+ 				});
+				sendgrid.send(sendGridEmail , function(err, json) {
+				  debt[item].sendRecord = Math.floor(now);
+				  debt[item].schedulePref = (debt[item].schedulePref+debt[item].sendRecord);
+				  debt[item].save(function(err){ });
+				  console.log('sendRecord'+debt[item].sendRecord);
+				  console.log(json);
+				  if (err) { console.error(err); }
+				});
+			}
+		});
   		}
   	});
  }
+
+ function emailOnCreate(email, debtHolderId, debterName, cellPhone) {
+ 	var debtOwner;
+	var userid = debtHolderId.toString();
+		User
+		.findById(userid, function(err, user){
+			if(err) console.log(err);
+			console.log(user.firstName);
+			debtOwner = user.firstName;
+		}).exec().then(function(){
+		console.log(debtOwner);
+	var messageToBeSent = debtOwner+' has declared an outstanding debt aginst you, '+debterName+', on debtpayback.com';
+	//Twilio Setup
+	var message = {
+		to: cellPhone,
+		from: '14088377896',
+		body: messageToBeSent,
+		date_sent: Date(),
+		is_support: true
+	};
+	//SendGrid setup
+ 	var sendGridEmail = new sendgrid.Email({
+			  to:       email,
+			  from:     'info@debtpayback.com',
+			  subject:  'You owe me money!',
+			  text:     messageToBeSent,
+			  setSendEachAt: Math.floor(Date.now()/1000)
+	});
+	//send with twlio
+	twilio.sendMessage(message, function(err, json) {
+		if (err) { console.log(err); }
+	});
+	//send with sendgrid
+	sendgrid.send(sendGridEmail, function(err, json){
+		if(err) console.error(err); 
+		console.log(json); 
+	}); 
+    });
+ }
+
+module.exports.emailOnCreate = emailOnCreate;

@@ -4,7 +4,7 @@
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
-          <input ng-model="fullname" id="name" type="text" class="validate">
+          <input autofocus value="" ng-model="fullname" id="name" type="text" class="validate">
           <label for="name" data-error="Please enter the name of a person">Name of person who owes you</label>
         </div>
         <div class="input-field col s3">
@@ -28,7 +28,32 @@
           <label for="textarea1">Description (What do they owe you for?)</label>
         </div>
       </div>
-       <span><button ng-click="createNewDebt()" class="btn waves-effect waves-light" type="submit" name="action">Submit debt
+      <div class="row">
+        <div class="input-field col s12">
+          <textarea ng-model="message" id="textarea1" class="materialize-textarea"></textarea>
+          <label for="textarea1">Message (What do you want to say to them?)</label>
+        </div>
+      </div>
+        <form action="#">
+          <p>
+            <input ng-model="schedulePref" class="with-gap" name="group1" type="radio" id="option1" value="1209600" />
+            <label for="option1">Once every other week</label>
+          </p>
+          <p>
+            <input ng-model="schedulePref" class="with-gap" name="group1" type="radio" id="option2" value="604800" />
+            <label for="option2">Once a week</label>
+          </p>
+          <p>
+            <input ng-model="schedulePref" class="with-gap" name="group1" type="radio" id="option3" value="302400"  />
+            <label for="option3">Twice a week</label>
+          </p>
+            <p>
+              <input ng-model="schedulePref" class="with-gap" name="group1" type="radio" id="option4" value="86400"  />
+              <label for="option4">Every day</label>
+          </p>
+        </form>
+
+       <span><button ng-click="createNewDebt()" class="modal-close btn waves-effect waves-light" type="submit" name="action">Submit debt
     <i class="material-icons"></i>
   </button></span>
     </form>

@@ -1,14 +1,47 @@
 var app = angular.module("payback");
 
 app.controller("dashboardCtrl", function($scope, user, dashboardService, debtService) {
+
     
-    function setResolveBtn(debtDoc){
-        if (debtDoc.status === "Open"){
-            $scope.debtDisplay = true;
-        } else {
+
+    function setDebtBtns(debtDoc) {
+        if (debtDoc.status === "Closed"){
+            $scope.debtDiscountAmount = false;
+            $scope.debtInterestAmount = false;
             $scope.debtDisplay = false;
-        }
-    }
+            $scope.debtDiscountSet = false;
+            $scope.debtInterestSet = false;
+        };
+
+        if (debtDoc.status === "Open" && debtDoc.interest === false && debtDoc.discount === true){
+            $scope.debtDisplay = true;
+            $scope.debtDiscountAmount = true;
+            $scope.debtInterestAmount = false;
+            $scope.debtDiscount = false;
+            $scope.debtDiscountSet = true;
+            $scope.debtInterestSet = false;
+        };
+
+        if (debtDoc.status === "Open" && debtDoc.interest === true && debtDoc.discount === false){
+            $scope.debtDisplay = true;
+            $scope.debtDiscountAmount = false;
+            $scope.debtInterestAmount = true;
+            $scope.debtDiscountSet = false;
+            $scope.debtInterestSet = true;
+            $scope.debtInterest = false;
+        };
+
+        if (debtDoc.status === "Open" && debtDoc.interest === false && debtDoc.discount === false){
+            $scope.debtDiscountAmount = false;
+            $scope.debtInterestAmount = false;
+            $scope.debtDiscountSet = true;
+            $scope.debtDiscount = true;
+            $scope.debtInterestSet = true;
+            $scope.debtInterest = true;
+            $scope.debtDisplay = true;
+        };
+    };
+ 
 //changed 8/4 7:00
     $scope.user = user.data; 
     $scope.getdata = function(get){
@@ -19,25 +52,59 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
         dashboardService.getCurrentUser(get)
     };
 
-    $scope.closeDetails = function(){
-        $scope.showDebt = false;
-    };
-
     $scope.closeDebt = function(debtDoc) {
         debtDoc.status = "Closed";
         debtService.updateDebt(debtDoc).then(function() {
-            $scope.getDebts();
-            setResolveBtn(debtDoc);
+            setDebtBtns(debtDoc);
         });
     };
 
     $scope.reopenDebt = function(debtDoc) {
         debtDoc.status = "Open";
         debtService.updateDebt(debtDoc).then(function() {
-            $scope.getDebts();
-            setResolveBtn(debtDoc);
+            setDebtBtns(debtDoc);
         });
     };
+
+    $scope.applyDiscount = function(debtDoc) {
+        debtDoc.discount = true;
+        debtDoc.discountedAmount = (debtDoc.amount * .9);
+        debtDoc.discountedAmount = debtDoc.discountedAmount.toFixed(2);
+        debtService.updateDebt(debtDoc).then(function() {
+            setDebtBtns(debtDoc);
+        });
+    };
+
+    $scope.removeDiscount = function(debtDoc) {
+        debtDoc.discount = false;
+        debtDoc.discountedAmount = debtDoc.amount;
+        debtService.updateDebt(debtDoc).then(function() {
+            setDebtBtns(debtDoc);
+        });
+    };
+
+    $scope.applyInterest = function(debtDoc) {
+        debtDoc.interest = true;
+        debtDoc.increasedAmount = (debtDoc.amount * 1.05);
+        debtDoc.increasedAmount = debtDoc.increasedAmount.toFixed(2);
+        debtService.updateDebt(debtDoc).then(function() {
+            setDebtBtns(debtDoc);
+        });
+    };
+
+    $scope.removeInterest = function(debtDoc) {
+        debtDoc.interest = false;
+        debtDoc.increasedAmount = debtDoc.amount;
+        debtService.updateDebt(debtDoc).then(function() {
+            setDebtBtns(debtDoc);
+        });
+    };
+
+    $scope.updateDebt = function(debtDoc) {
+        debtService.updateDebt(debtDoc).then(function() {
+            setDebtBtns(debtDoc);
+        });
+    }
 
     //added 8/4 7:00
     $scope.updateUser = function(user) {
@@ -48,10 +115,14 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
         debtService.getDebts().then(function(data) {
             var debtArray = [];
             var debtTotal = 0;
+            console.log("user", user)
+            console.log("scope.user", $scope.user)
             for (var i = 0; i < data.length; i++){
                 if (user.data._id === data[i].userId  && user.data._id ){
                     phoneNo = data[i].cellPhone;
                     data[i].amount = data[i].amount.toFixed(2);
+                    data[i].discountedAmount = data[i].discountedAmount.toFixed(2);
+                    data[i].increasedAmount = data[i].increasedAmount.toFixed(2);
                     data[i].cellPhone = phoneNo.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3");
                     debtArray.push(data[i]);
                     if (data[i].status === "Open"){
@@ -82,21 +153,12 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
         selectedItems: $scope.selected,
         multiSelect: false,
         afterSelectionChange: function (row, event) {
-            $scope.showDebt = false;
             $scope.debtDoc = $scope.selected[0];
 
             if ($scope.debtDoc){
-
-              $scope.showDebt = true;
-
-              if ($scope.selected[0].status === "Open"){
-                $scope.debtDisplay = true;
-              } else {
-                $scope.debtDisplay = false;
-              }
-
-            }
-            
+              setDebtBtns($scope.debtDoc);
+              $('#modal4').openModal();
+            };
         },
         height: '200px',
         sortInfo: {fields: ['Name', 'Amount', 'Description', 'Status'], directions: ['asc']},
@@ -104,6 +166,7 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
             {field: 'fullname', displayName: 'Name'},
             {field: 'amount', displayName: 'Amount'},
             {field: 'newdescription', displayName: 'Description'},
+            {field: 'message', displayName: 'Message'},
             {field: 'status', displayName: 'Status'}
         ]
     };

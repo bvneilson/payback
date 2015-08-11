@@ -4,18 +4,18 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
 
     dashboardService.getUser().then(function(user){
         $scope.show = user.data
-    })
+    });
     
     
     //register
 
     $scope.submit = function(email, password) {
         var newUser = {
-        // full_name: $scope.full_name,
-        // firstName: $scope.firstName, 
-        email: $scope.email,
-        password: $scope.reg_password
-    };
+        // full_name: $scope.full_name, 
+            email: $scope.email,
+            password: $scope.reg_password
+        };
+
         mainService.signup(email, password).then(function(res){
             console.log('success', 'Ok!', 'You are now registered');
             Materialize.toast("Account Created!", 2500, 'toast-success');
@@ -41,7 +41,7 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
     // Login
 
 
-        $scope.submitLogIn = function(email, password) {
+    $scope.submitLogIn = function(email, password) {
         mainService.login(email, password).then(function(login) {
             console.log('success', 'Ok!', 'You are now logged in');
             Materialize.toast("You are now logged in!", 2500, 'toast-success');
@@ -61,5 +61,10 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
             
         });
     };
+<<<<<<< HEAD
 
 })
+=======
+  
+});
+>>>>>>> 2bd87aa3a2d083875d56db97f2b8b52c36010735

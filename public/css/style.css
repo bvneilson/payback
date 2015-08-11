@@ -51,12 +51,12 @@ table
 	border-top: 1px solid #ddd;
 }
 
-th, td, tr
+th, td
 {
 	padding: .5em 1em;
 	vertical-align: top;
 	text-align: left;
-
+	border-bottom: 1px solid #ddd;
 }
 
 a:link { color: royalblue; }
@@ -80,15 +80,16 @@ Layout styles
 }
 
 .gridStyle {
-    border: 3px solid black;
-    width: 100%;
+    border: 1px solid #991414;
+    width: 95%; 
     height: 220px;
-    color: #00796B;
+    color: #991414;
     font-size: 12px;
+    margin: 20px;
 }
 
 .closedRowColor {
-	background-color: #00796B;
+	background-color: blue;
 	color: white;
 }
 
@@ -240,7 +241,7 @@ p {
 }
 
 .debtDetailsLabels {
-	font-size: 18px
+	font-size: 18px;
 }
 
 .padIt {
@@ -254,51 +255,4 @@ p {
 
 #btnMargin {
 	margin: 20px;
-}
-
-.technologiesUsed {
-	width: 100%;
-	text-align: center;
-	background-color: transparent;
-}
-.technologiesUsed h1 {
-	vertical-align: center;
-}	
-.technologyArea {
-	width: 100%;
-	text-align: center;
-	height: 100%;
-	background-color: transparent;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	clear: both;
-}
-
-.logo {
-	height: 150px;
-	width: 150px;
-	margin-top: 30px;
-	margin-left: 75px;
-	margin-right: 75px;
-	margin-bottom: 60px;
-	text-align: justify-center;
-}
-
-.logo img {
-    display: block;
-    margin: 0 auto;
-    height: 150px;
-	width: 150px;
-
-}
-.logo p {
-	font-size: large;
-}
-	margin: 10px;
-}
-
-#debtMsg {
-	width: 600px;
-	padding-left: 15px;
 }
