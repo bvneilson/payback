@@ -7,6 +7,7 @@ app.service('mainService', function($http) {
             url: '/api/user/signup',
             data: {
                 // full_name: newUser.full_name,
+                // firstName: firstName,
                 email: email, 
                 password: password,
             }

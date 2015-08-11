@@ -28,7 +28,7 @@ app.config(function($routeProvider) {
         templateUrl: '/logout'
     })
     .when('/newdebt', {
-        templateUrl: 'newDebtTmpl.html',
+        templateUrl: 'view/newDebt.html',
         controller: 'debtCtrl'
     })
     .when('/about', {
@@ -39,6 +39,9 @@ app.config(function($routeProvider) {
     })
     .when('/text', {
       templateUrl: 'view/text.html'
+    })
+    .when('/technologies', {
+      templateUrl: 'view/technologies.html'
     })
     .otherwise({
       redirectTo: '/'

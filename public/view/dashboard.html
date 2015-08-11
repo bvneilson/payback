@@ -6,55 +6,14 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 
    <div>
-       <h1 class="padIt">Welcome</h1>
+       <h1 class="padIt">Welcome, {{user.firstName}}!</h1>
    </div>
    <div class="row">
        <div class="col s4">
-<<<<<<< HEAD
-           <h3>User Info:</h3>
-           <p>Name: {{user.data.firstName + " " + user.data.lastName}}<p>
-           <p>Email: {{user.data.email}}</p>
-
-               <!-- Modal Trigger -->
-  <p><button data-target="modal3" class="btn updateProf-trigger">Edit Profile</button>
-  </p>
-    <!-- Modal Structure -->
-            
-              <div id="modal3" class="modal">
-                  
-          <div class="modal-content">
-            <div class="row">
-                    <h4>Edit Profile</h4>
-                        <div class="input-field col s12">
-                          <input id="firstName" type="text" ng-model="userDoc.firstName" class="validate">
-                          <label for="firstName">First Name</label>
-                        </div>
-                         <div class="input-field col s12" style="padding-right: 10%;">
-                            <input id="lastName" type="text" class="validate" ng-model="userDoc.lastName" name="lastName" required>
-                            <label for="lastName">Last Name</label>
-                </div>
-                <div class="input-field col s12">
-                          <input id="cellPhone" type="tel" ng-model="userDoc.cellPhone" class="validate">
-                          <label for="cellPhone">Cell Phone</label>
-                        </div>
-                <div class="input-field col s12">
-                          <input id="email" type="email" ng-model="userDoc.email" class="validate" value={{user.data.email}}>
-                          <label for="email">Email</label>
-                </div>
-                <div class="input-field col s12" style="padding-right: 10%;">
-                            <input id="password" type="password" class="validate" ng-model="userDoc.reg_password" name="reg_password" required>
-                            <label for="password">Password</label>
-                          </div>
-            </div>
-                            <button class="btn waves-effect waves-light" type="submit" ng-click="updateUserProfile()">Finish & Update
-                     
-                      </button>
-          </div>
-                </div>
-              </div>
-=======
           <h3>User Info:</h3>
-          <p>{{user.email}}<p>
+          <p>Name: {{user.firstName}} {{user.lastName}}</p>
+          <p>Email: {{user.email}}<p>
+          <p>Cell Phone: {{user.cellPhone}}</p>
           <!-- Modal Trigger -->
           <p><button data-target="modal3" class="btn updateProf-trigger">Edit Profile</button></p>
        </div>
@@ -81,7 +40,7 @@
                   <label class="active" for="email">Email</label>
                 </div>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" ng-click="updateUser(user)">Finish & Update
+            <button class="modal-close btn waves-effect waves-light" type="submit" ng-click="updateUser(user)">Finish & Update
             </button>
           </div>
         </div>
@@ -89,7 +48,6 @@
 
        
 
->>>>>>> 33bfb523b92ea317f1e0bfa50fa4a0902f549853
        <div class="col s8">
           <h3 class="padIt">My Debts:</h3>
           <br>
@@ -144,17 +102,6 @@
           <div id="btnMargin" class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
-<<<<<<< HEAD
-<script>
-$(document).ready(function(){
-   $('.updateProf-trigger').leanModal({
-       opacity: .3,
-       in_duration: 300, // Transition in duration
-         out_duration: 200, // Transition out duration
-   });
- });
-</script>
-=======
    <script>
   $(document).ready(function(){
      $('.updateProf-trigger').leanModal({
@@ -164,6 +111,5 @@ $(document).ready(function(){
      });
    });
   </script>
->>>>>>> 33bfb523b92ea317f1e0bfa50fa4a0902f549853
 </body>
 </html>

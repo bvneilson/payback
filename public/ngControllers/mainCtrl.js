@@ -11,7 +11,8 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
 
     $scope.submit = function(email, password) {
         var newUser = {
-        // full_name: $scope.full_name, 
+        // full_name: $scope.full_name,
+        // firstName: $scope.firstName, 
         email: $scope.email,
         password: $scope.reg_password
     };
@@ -22,6 +23,7 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
                 $location.path("/dashboard/");
              
               // $scope.full_name = '';
+              // $scope.firstName = '';
               $scope.email = '';
               $scope.reg_password = '';
               $scope.password_confirm = '';

@@ -16,7 +16,6 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
     };
 
     $scope.getCurrentUser = function(get){
-        });
         dashboardService.getCurrentUser(get)
     };
 

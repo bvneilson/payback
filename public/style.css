@@ -256,3 +256,43 @@ p {
 #btnMargin {
 	margin: 20px;
 }
+
+.technologiesUsed {
+	width: 100%;
+	text-align: center;
+	background-color: transparent;
+}
+.technologiesUsed h1 {
+	vertical-align: center;
+}	
+.technologyArea {
+	width: 100%;
+	text-align: center;
+	height: 100%;
+	background-color: transparent;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	clear: both;
+}
+
+.logo {
+	height: 150px;
+	width: 150px;
+	margin-top: 30px;
+	margin-left: 75px;
+	margin-right: 75px;
+	margin-bottom: 60px;
+	text-align: justify-center;
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto;
+    height: 150px;
+	width: 150px;
+
+}
+.logo p {
+	font-size: large;
+}
