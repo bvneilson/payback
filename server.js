@@ -17,12 +17,6 @@ var cookieParser = require('cookie-parser');
 var http = require('http');
 var bcrypt = require('bcrypt-nodejs');
 var localStrategy = require('passport-local').Strategy;
-var AWS = require('aws-sdk');
-AWS.config = new AWS.Config();
-AWS.config.update({
-  accessKeyId: 'AKIAJ6H5OB3YMTLK4OJQ',
-  secretAccessKey: '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'
-})
 
 require('./passport')(passport);
 //Sperate Processes
@@ -53,10 +47,6 @@ app.use(session({ secret: 'payback',
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-
-// S3 Web services
-
-var s3bucket = new AWS.S3({params: {Bucket: 'debtpayback'}});
 
 //app.post('/api/users/:id', UserCtrl.updateUser);
 

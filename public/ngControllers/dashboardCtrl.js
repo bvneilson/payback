@@ -100,9 +100,14 @@ app.controller("dashboardCtrl", function($scope, user, dashboardService, debtSer
         });
     };
 
+    $scope.updateDebt = function(debtDoc) {
+        debtService.updateDebt(debtDoc).then(function() {
+            setDebtBtns(debtDoc);
+        });
+    }
+
     //added 8/4 7:00
     $scope.updateUser = function(user) {
-        console.log("new user",user)
         dashboardService.updateUser(user);
     };
 
