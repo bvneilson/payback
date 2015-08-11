@@ -13,7 +13,7 @@ app.controller('debtCtrl', function($scope, $location, debtService) {
 			message: $scope.message,
 			schedulePref: $scope.schedulePref
 		};
-		console.log('newDebt', newDebt.schedulePref);
+		console.log('newDebt', newDebt);
 		debtService.createDebt(newDebt).then(function(res) {
 			console.log('success', 'Ok!', 'You wager is under way');
             Materialize.toast("Debt Created!", 2500, 'toast-success');
