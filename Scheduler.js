@@ -21,6 +21,7 @@ function email() {
 			.findById(userid, function(err, user){
 				if(err) console.log(err);
 				console.log(user.firstName);
+				undefined = user.email;
 				owner = user.firstName;
 			}).exec().then(function(){
 			console.log(owner);
