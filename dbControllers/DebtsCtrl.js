@@ -20,13 +20,13 @@ module.exports = {
       userId: req.user.id,
       sendRecord: Math.floor(Date.now()/1000)
     },
-    scheduler.emailOnCreate(req.body.email, req.user.id, req.body.fullname, req.body.cellPhone),
      function(err, debt){
       if(debt){
         User
           .findByIdAndUpdate(req.user.id, 
             {$push: {debtId: debt._id}},
             function(err, debt){
+              return res.json(debt);
               if(err) return res.status(500).end(); 
               return res.json(debt); 
             });
@@ -34,6 +34,7 @@ module.exports = {
       // if(err) return res.status(500).end(); 
       // return res.json(debt); 
     });
+    scheduler.emailOnCreate(req.body.email, req.user.id, req.body.fullname, req.body.cellPhone);
   },
 
   getDebts: function(req, res) {

@@ -19,9 +19,6 @@
           <div class="modal-content">
             <div class="row">
               <h4>Edit Profile</h4>
-                <!-- <div class="input-field col s12">
-                  <input name="image" id="image" type="file" ng-model="user.image" value={{ user.image }} class="validate">
-                </div> -->
                 <div class="input-field col s12">
                   <input id="firstName" type="text" ng-model="user.firstName" value={{user.firstName}} class="validate">
                   <label class="active" for="firstName">First Name</label>
@@ -52,10 +49,8 @@
        
 
        <div class="col s8">
-          <h3 class="padIt">My Debts:</h3>
-          <br>
-
-
+          <div id="btnMargin" class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
+          <h2 class="padIt">My Debts:</h2>
           <p class="gridStyle" ng-grid="gridOptions"></p>
 
           <div id="modal4" style="min-width: 800px; max-width: 1200px" class="modal">         
@@ -71,21 +66,29 @@
                     <table>
                       <tr>
                         <td>
-                          <span class="debtDetailsLabels">Name: </span><span ng-model="debtDoc.fullname">{{selected[0].fullname}}</span>
+                          <span class="debtDetailsLabels">Name: </span><input ng-model="debtDoc.fullname" value={{selected[0].fullname}/>
                         </td>
                         <td>
-                          <span class="debtDetailsLabels">Email: </span><span ng-model="debtDoc.email">{{selected[0].email}}</span>
+                          <span class="debtDetailsLabels">Email: </span><input ng-model="debtDoc.email" value={{selected[0].email}}/>
                         </td>
                         <td>
-                          <span class="debtDetailsLabels">Cell Phone: </span><span ng-model="debtDoc.cellphone">{{selected[0].cellPhone}}</span>
+                          <span class="debtDetailsLabels">Cell Phone: </span><input ng-model="debtDoc.cellPhone" value={{selected[0].cellPhone}}/>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
+                          <span class="debtDetailsLabels">Amount: </span>
+                          <input ng-value={{selected[0].amount}} ng-model="debtDoc.amount" />
                         </td>
                         <td>
-                          <span class="debtDetailsLabels">Amount: </span><span ng-model="debtDoc.amount">${{selected[0].amount}}</span>
+                          <span class="debtDetailsLabels">Description: </span><input ng-model="debtDoc.newdescription" value={{selected[0].newdescription}} />
+                        </td>
+                        <td></td>
+                        <td></td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
                         </td>
                         <td>
                           <div ng-show = "debtDiscountAmount">
@@ -96,25 +99,33 @@
                           </div>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <span class="debtDetailsLabels">Description: </span><span ng-model="debtDoc.newdescription">{{selected[0].newdescription}}</span>
-                        </td>
-                      </tr>
+                      <table>
+                        <tr>
+                            <div id="debtMsg" class="debtDetailsLabels">Message: </div>
+                            <textarea id="debtMsg" rows="4" type="text" ng-model="debtDoc.message" value={{selected[0].message}}></textarea>
+                        </tr>
+                      </table>
                     </table>
                     <table>
-                      <td>
-                        <button class="btn btn-default btn-sm" id="resolveDebt" ng-show="debtDisplay" ng-click="closeDebt(debtDoc)">Resolve Debt</button>
-                        <button class="btn btn-default btn-sm" id="reopenDebt" ng-show="!debtDisplay" ng-click="reopenDebt(debtDoc)">Reopen Debt</button>
-                      </td>
-                      <td ng-show="debtDiscountSet" >
-                        <button class="btn btn-default btn-sm" id="giveDisc" ng-show="debtDiscount" ng-click="applyDiscount(debtDoc)">Apply 10% Discount</button>
-                        <button class="btn btn-default btn-sm" id="removeDisc" ng-show="!debtDiscount" ng-click="removeDiscount(debtDoc)">Remove Discount</button>
-                      </td>
-                      <td ng-show="debtInterestSet">
-                        <button class="btn btn-default btn-sm" id="addInterest" ng-show="debtInterest" ng-click="applyInterest(debtDoc)">Apply 5% Interest</button>
-                        <button class="btn btn-default btn-sm" id="removeInterest" ng-show="!debtInterest" ng-click="removeInterest(debtDoc)">Remove Interest</button>
-                      </td>
+                      <tr>
+                        <td>
+                          <button type:"submit" class="modal-close btn btn-default btn-sm" ng-click="updateDebt(debtDoc)">Update Debt</button>
+                        </td>
+                        <td ng-show="debtDiscountSet" >
+                          <button class="btn btn-default btn-sm" id="giveDisc" ng-show="debtDiscount" ng-click="applyDiscount(debtDoc)">Apply 10% Discount</button>
+                          <button class="btn btn-default btn-sm" id="removeDisc" ng-show="!debtDiscount" ng-click="removeDiscount(debtDoc)">Remove Discount</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <button class="btn btn-default btn-sm" id="resolveDebt" ng-show="debtDisplay" ng-click="closeDebt(debtDoc)">Resolve Debt</button>
+                          <button class="btn btn-default btn-sm" id="reopenDebt" ng-show="!debtDisplay" ng-click="reopenDebt(debtDoc)">Reopen Debt</button>
+                        </td>
+                        <td ng-show="debtInterestSet">
+                          <button class="btn btn-default btn-sm" id="addInterest" ng-show="debtInterest" ng-click="applyInterest(debtDoc)">Apply 5% Interest</button>
+                          <button class="btn btn-default btn-sm" id="removeInterest" ng-show="!debtInterest" ng-click="removeInterest(debtDoc)">Remove Interest</button>
+                        </td>
+                      </tr>
                     </table>
                     <br>
                   </form> 
@@ -124,7 +135,6 @@
           </div>
           <br>
           <br>
-          <div id="btnMargin" class="btn btn-default btn-sm"><a href="/#/newdebt">Create New Debt<a/></div>
        </div>
    </div>
   <script>
