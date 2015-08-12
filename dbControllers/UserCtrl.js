@@ -17,8 +17,7 @@ module.exports = {
        return res.json(user);
      });
  },
-
-// added 8/4 7:00
+ 
  updateUser: function(req, res) {
    User.findByIdAndUpdate(req.params.id, {
       email: { type: String, required: true },

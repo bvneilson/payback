@@ -3,7 +3,7 @@ angular.module('payback').service('dashboardService', function($http, $q) {
   this.getUser = function(user_id) {
     return $http({
       method: 'GET',
-      url: 'http://localhost:1337/api/user/'
+      url: '/api/user/'
     })
   };
 
@@ -35,14 +35,5 @@ angular.module('payback').service('dashboardService', function($http, $q) {
       data: user
     });
   }
-
-  // this.uploadImage = function(user) {
-  //   console.log("user w image", user)
-  //   return $http({
-  //     method: 'PUT',
-  //     url: '/api/users/' + user._id,
-  //     data: user
-  //   });
-  // }
 
 });
