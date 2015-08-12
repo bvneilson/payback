@@ -4,7 +4,7 @@ var Debt = require('./dbModels/Debts');
 var CronJob = require('cron').CronJob;
 var dotenv = require('dotenv');
 dotenv.load();
-var sendgrid = require('sendgrid')('apikey', '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');
+var sendgrid = require('sendgrid')('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');
 var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
 
 var job = new CronJob('0 10 * * *',  email, null, true, 'America/Denver'); job.start();
