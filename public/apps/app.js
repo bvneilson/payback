@@ -40,8 +40,8 @@ app.config(function($routeProvider) {
     .when('/text', {
       templateUrl: 'view/text.html'
     })
-    .when('/technologies', {
-      templateUrl: 'view/technologies.html'
+    .when('/tech', {
+      templateUrl: 'view/tech.html'
     })
     .otherwise({
       redirectTo: '/'

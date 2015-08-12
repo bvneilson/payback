@@ -61,10 +61,5 @@ app.controller("mainCtrl", function($scope, mainService, dashboardService, debtS
             
         });
     };
-<<<<<<< HEAD
-
-})
-=======
   
 });
->>>>>>> 2bd87aa3a2d083875d56db97f2b8b52c36010735

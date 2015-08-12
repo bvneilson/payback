@@ -48,7 +48,6 @@ table
 	background-color: transparent;
 	border-spacing: 0;
 	border-collapse: collapse;
-	border-top: 1px solid #ddd;
 }
 
 th, td, tr
@@ -81,7 +80,7 @@ Layout styles
 
 .gridStyle {
     border: 3px solid black;
-    width: 100%;
+    width: 95%;
     height: 220px;
     color: #00796B;
     font-size: 12px;

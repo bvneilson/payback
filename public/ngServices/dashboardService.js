@@ -3,7 +3,7 @@ angular.module('payback').service('dashboardService', function($http, $q) {
   this.getUser = function(user_id) {
     return $http({
       method: 'GET',
-      url: 'http://localhost:1337/api/user/'
+      url: '/api/user/'
     })
   };
 

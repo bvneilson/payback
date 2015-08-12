@@ -78,7 +78,7 @@
                       <tr>
                         <td>
                           <span class="debtDetailsLabels">Amount: </span>
-                          <input value={{selected[0].amount}} ng-model="debtDoc.amount"/>
+                          <input ng-value={{selected[0].amount}} ng-model="debtDoc.amount" />
                         </td>
                         <td>
                           <span class="debtDetailsLabels">Description: </span><input ng-model="debtDoc.newdescription" value={{selected[0].newdescription}} />
@@ -86,19 +86,18 @@
                         <td></td>
                         <td></td>
                       </tr>
-                        <tr>
-                          <td>
-                            <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
-                          </td>
-                          <td>
-                            <div ng-show = "debtDiscountAmount">
-                              <span class="debtDetailsLabels">Discounted Amount: </span><span ng-model="debtDoc.discountedAmount">${{selected[0].discountedAmount}}</span>
-                            </div>
-                            <div ng-show = "debtInterestAmount">
-                              <span class="debtDetailsLabels">Amount plus interest: </span><span ng-model="debtDoc.increasedAmount">${{selected[0].increasedAmount}}</span>
-                            </div>
-                          </td>
-                        </tr>
+                      <tr>
+                        <td>
+                          <span class="debtDetailsLabels">Status: </span><span ng-model="debtDoc.status">{{selected[0].status}}</span>
+                        </td>
+                        <td>
+                          <div ng-show = "debtDiscountAmount">
+                            <span class="debtDetailsLabels">Discounted Amount: </span><span ng-model="debtDoc.discountedAmount">${{selected[0].discountedAmount}}</span>
+                          </div>
+                          <div ng-show = "debtInterestAmount">
+                            <span class="debtDetailsLabels">Amount plus interest: </span><span ng-model="debtDoc.increasedAmount">${{selected[0].increasedAmount}}</span>
+                          </div>
+                        </td>
                       </tr>
                       <table>
                         <tr>
