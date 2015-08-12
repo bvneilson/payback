@@ -46,7 +46,7 @@ app.service('debtService', function($http, $q) {
     this.updateDebt = function(debtDoc) {
 	    return $http({
 	      method: 'PUT',
-	      url: 'http://localhost:1337/api/debts/' + debtDoc._id,
+	      url: '/api/debts/' + debtDoc._id,
 	      data: debtDoc
 	    });
   	}

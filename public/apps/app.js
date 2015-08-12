@@ -40,6 +40,9 @@ app.config(function($routeProvider) {
     .when('/text', {
       templateUrl: 'view/text.html'
     })
+    .when('/tech', {
+      templateUrl: 'view/tech.html'
+    })
     .otherwise({
       redirectTo: '/'
     });
