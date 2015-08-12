@@ -46,11 +46,31 @@ module.exports = {
     });
   },
   
-  updateDebt: function(req, res) {
-    Debt.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
-      if (err) return res.status(500).json(err);
-      res.json(result);
-    });
+  // updateDebt: function(req, res) {
+  //   Debt.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
+  //     if (err) return res.status(500).json(err);
+  //     res.json(result);
+  //   });
+  // }
+
+  updateDebt: function(req, res){
+    Debt
+      .findByIdAndUpdate(req.params.id, {
+        email: req.body.email, 
+        fullname: req.body.fullname, 
+        amount: req.body.amount, 
+        cellPhone: req.body.cellPhone,
+        newdescription: req.body.newdescription,
+        message: req.body.message,
+        schedulePref: req.body.schedulePref,
+        // userId: req.user.id
+        // sendRecord: Math.floor(Date.now()/1000)
+      })
+      .exec(function(err, result){
+        console.log("debt updated", result); 
+        if(err) return res.status(500).end(); 
+        return res.status(200).json(result); 
+      })
   }
 
   // delete: function(req, res) {
