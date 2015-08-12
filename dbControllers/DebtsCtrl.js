@@ -56,7 +56,15 @@ module.exports = {
   updateDebt: function(req, res){
     Debt
       .findByIdAndUpdate(req.params.id, {
-        //update entities 
+        email: req.body.email, 
+        fullname: req.body.fullname, 
+        amount: req.body.amount, 
+        cellPhone: req.body.cellPhone,
+        newdescription: req.body.newdescription,
+        message: req.body.message,
+        schedulePref: req.body.schedulePref,
+        // userId: req.user.id
+        // sendRecord: Math.floor(Date.now()/1000)
       })
       .exec(function(err, result){
         console.log("debt updated", result); 
