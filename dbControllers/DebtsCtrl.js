@@ -63,6 +63,10 @@ module.exports = {
         newdescription: req.body.newdescription,
         message: req.body.message,
         schedulePref: req.body.schedulePref,
+        discount: req.body.discount,
+        discountedAmount: req.body.discountedAmount,
+        increasedAmount: req.body.increasedAmount,
+        interest: req.body.interest
         // userId: req.user.id
         // sendRecord: Math.floor(Date.now()/1000)
       })
