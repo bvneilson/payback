@@ -123,7 +123,7 @@ app.get('/api/debts', DebtsCtrl.getDebts);
 app.put('/api/debts/:id', DebtsCtrl.updateDebt);
 
 // Connections
-var port = 1337;
+var port = 80;
 var mongoUri = 'mongodb://localhost:26018/payback';
 
 mongoose.connect(mongoUri);

@@ -72,7 +72,7 @@ function email() {
 		.findById(userid, function(err, user){
 			if(err) console.log(err);
 			console.log(user.firstName);
-			if (user,firstName === ""){
+			if (user.firstName === ""){
 				debtOwner = user.firstName;
 			} else {
 				debtOwner = user.email;
