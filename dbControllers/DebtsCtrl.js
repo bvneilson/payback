@@ -17,7 +17,7 @@ module.exports = {
       newdescription: req.body.newdescription,
       message: req.body.message,
       schedulePref: req.body.schedulePref,
-      userId: req.user.id,
+      userId: req.user._id,
       sendRecord: Math.floor(Date.now()/1000)
     },
      function(err, debt){
