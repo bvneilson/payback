@@ -26,7 +26,8 @@ module.exports = {
       lastName: { tpe: String },
       cellPhone: { type: String },
       paypalEmail: { type: String }
-    }, function(err, result) {
+    })
+      .exec(function(err, result) {
       if (err) return res.status(500).json(err);
       res.json(result);
     });
