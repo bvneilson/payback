@@ -20,12 +20,12 @@ module.exports = {
  
  updateUser: function(req, res) {
    User.findByIdAndUpdate(req.params.id, {
-      email: { type: String, required: true },
-      password: { type: String, required: true },
-      firstName: { type: String },
-      lastName: { tpe: String },
-      cellPhone: { type: String },
-      paypalEmail: { type: String }
+      email: req.body.email,
+      password: req.body.password,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      cellPhone: req.body.cellPhone,
+      paypalEmail: req.body.paypalEmail
     })
       .exec(function(err, result) {
       if (err) return res.status(500).json(err);
