@@ -71,7 +71,12 @@ function email() {
 		.findById(userid, function(err, user){
 			if(err) console.log(err);
 			console.log(user.firstName);
-			debtOwner = user.firstName;
+			if (user,firstName === ""){
+				debtOwner = user.firstName;
+			} else {
+				debtOwner = user.email;
+			}
+			
 		}).exec().then(function(){
 		console.log(debtOwner);
 	var messageToBeSent = debtOwner+' has declared an outstanding debt aginst you, '+debterName+', on debtpayback.com';
