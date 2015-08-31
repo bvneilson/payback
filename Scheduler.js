@@ -4,7 +4,7 @@ var Debt = require('./dbModels/Debts');
 var CronJob = require('cron').CronJob;
 var dotenv = require('dotenv');
 dotenv.load();
-var sendgrid = require('sendgrid')('apikey', 'WlSFGak6Qxm_AQcDYBi9ug');
+var sendgrid = require('sendgrid')('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');
 var twilio = require('twilio')('AC5eec3b646d201f9c91fdf62e2dc40de8', 'e85c28535adf93201b1daf08a04c45cc');
 
 var job = new CronJob('0 10 * * *',  email, null, true, 'America/Denver'); job.start();
@@ -21,6 +21,7 @@ function email() {
 			.findById(userid, function(err, user){
 				if(err) console.log(err);
 				console.log(user.firstName);
+				undefined = user.email;
 				owner = user.firstName;
 			}).exec().then(function(){
 			console.log(owner);
@@ -71,7 +72,12 @@ function email() {
 		.findById(userid, function(err, user){
 			if(err) console.log(err);
 			console.log(user.firstName);
-			debtOwner = user.firstName;
+			if (user.firstName === ""){
+				debtOwner = user.firstName;
+			} else {
+				debtOwner = user.email;
+			}
+			
 		}).exec().then(function(){
 		console.log(debtOwner);
 	var messageToBeSent = debtOwner+' has declared an outstanding debt aginst you, '+debterName+', on debtpayback.com';

@@ -3,7 +3,7 @@ var User = require('../dbModels/User.js');
 var mongoose = require('mongoose');
 var dotenv = require('dotenv');
 dotenv.load();
-var sendgrid = require('sendgrid')(process.env.SENDGRID_API_KEY);
+var sendgrid = require('sendgrid')('apikey', 'WlSFGak6Qxm_AQcDYBi9ug');
 var scheduler = require('../Scheduler.js');
 
 module.exports = {
@@ -17,7 +17,7 @@ module.exports = {
       newdescription: req.body.newdescription,
       message: req.body.message,
       schedulePref: req.body.schedulePref,
-      userId: req.user.id,
+      userId: req.user._id,
       sendRecord: Math.floor(Date.now()/1000)
     },
      function(err, debt){
@@ -45,7 +45,7 @@ module.exports = {
       return res.json(result);
     });
   },
-  
+ 
   // updateDebt: function(req, res) {
   //   Debt.findByIdAndUpdate(req.params.id, req.body, function(err, result) {
   //     if (err) return res.status(500).json(err);
@@ -63,6 +63,10 @@ module.exports = {
         newdescription: req.body.newdescription,
         message: req.body.message,
         schedulePref: req.body.schedulePref,
+        discount: req.body.discount,
+        discountedAmount: req.body.discountedAmount,
+        increasedAmount: req.body.increasedAmount,
+        interest: req.body.interest
         // userId: req.user.id
         // sendRecord: Math.floor(Date.now()/1000)
       })
